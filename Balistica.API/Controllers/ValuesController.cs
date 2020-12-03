@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Balistica.API.Model;
-using Balistica.API.Data;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Balistica.Repository;
 
 namespace Balistica.API.Controllers
 {
@@ -15,9 +14,9 @@ namespace Balistica.API.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
-        public DataContext Context { get; }
+        public BalisticaContext Context { get; }
 
-        public ValuesController(DataContext context)
+        public ValuesController(BalisticaContext context)
         {
             this.Context = context;
 
@@ -47,7 +46,7 @@ namespace Balistica.API.Controllers
           
             try
             {
-             var results = await Context.Armas.FirstOrDefaultAsync(x => x.ArmaId == id);   
+             var results = await Context.Armas.FirstOrDefaultAsync(x => x.Id == id);   
              return Ok(results);
             }
             catch (System.Exception)

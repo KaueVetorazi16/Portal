@@ -1,0 +1,99 @@
+
+<div class="form-inline">
+  <div class="form-group mb-2">
+    <label class="mr-2">Filtro:</label> <input type="text" 
+    class="form-control mr-2" 
+    placeholder="buscar"
+    [(ngModel)]= "filtroLista">
+    <button class="btn btn-outline-success">buscar</button>
+  </div>
+</div>
+<h3>Filtro: {{filtroLista}}</h3>
+
+<table class="table table-striped">
+  <thead class="thead-dark">
+    <tr>
+      <th>#</th>
+      <th>Marca</th>
+      <th>Tipo</th>
+      <th>Pais De Fabricação</th>
+      <th>Modelo</th>
+      <th>Alma</th>
+      <th>Raias</th>
+      <th>Tipo do Cano</th>
+      <th>Comprimento do Cano</th>
+      <th>Acao</th>
+      <th>Carregamento </th>
+      <th>Percussão</th>
+      <th>Tiro Unitário</th>
+      <th>Repetição</th>
+      <th>Capacidade</th>
+      <th>Acabamento</th>
+      <th>Obsevações</th>
+      <th>Imagem</th>   
+      <th>Calibre</th>
+      <th>Opções</th>  
+   
+    </tr>
+  </thead>
+  <tbody *ngIf="armas && armas.length">
+    <tr *ngFor="let arma of armasFiltradas">
+      <td>{{arma.id}}</td>
+      <td>{{arma.marca}}</td>
+      <td>{{arma.paisDeFabricacao}}</td>
+      <td>{{arma.tipo}}</td>
+      <td>{{arma.modelo}}</td>
+      <td>{{arma.alma}}</td>
+      <td>{{arma.raias}}</td>
+      <td>{{arma.tipoDoCano}}</td>
+      <td>{{arma.comprimentoDoCano}}</td>
+      <td>{{arma.acao}}</td>
+      <td>{{arma.carregamento}}</td>
+      <td>{{arma.percussao}}</td>
+      <td>{{arma.tiroUnitario}}</td>
+      <td>{{arma.repeticao}}</td>
+      <td>{{arma.capacidade}}</td>
+      <td>{{arma.acabamento}}</td>
+      <td>{{arma.observacoes}}</td>           
+      <td>
+        <img src="http://localhost:5000/img/{{arma.imagem}}"
+        [style.width.px]="imagemLargura"
+        [style.margin.px]="imagemMargem">       
+      </td>
+      <td>{{arma.calibreId}}</td>  
+      <td>
+        <div class="btn-group">
+          <button class="btn-sm btn-success" 
+          tooltip="Editar" (click)="openModal(template)">
+            <i class="fa fa-edit"></i>
+          </button>
+          <button class="btn-sm btn-danger" tooltip="Excluir">
+            <i class="fa fa-eraser"></i>
+          </button>
+        </div>          
+      </td>
+    </tr>
+  </tbody>
+  <tfoot *ngIf="!armas.length">
+    <tr>
+      <td colspan="6" class="text-center">
+        <h3>
+          Nenhuma arma encontrada
+        </h3>
+      </td>
+    </tr>
+  </tfoot>
+</table>
+
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Modal</h4>
+    <button type="button" class="close pull-right" 
+    aria-label="Close" (click)="modalRef.hide()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  This is a modal.
+</div>
+</ng-template>
