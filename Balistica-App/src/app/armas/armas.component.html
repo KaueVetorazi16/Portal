@@ -1,5 +1,5 @@
-
-<div class="form-inline">
+<div class="d-flex">
+<div class="form-inline mr-auto">
   <div class="form-group mb-2">
     <label class="mr-2">Filtro:</label> <input type="text" 
     class="form-control mr-2" 
@@ -8,8 +8,15 @@
     <button class="btn btn-outline-success">buscar</button>
   </div>
 </div>
-<h3>Filtro: {{filtroLista}}</h3>
+<div >
+  <button class="btn btn-outline-primary" (click)="novaArma(template)">
+    <i class="fa fa-plus-circle"></i>
+    Nova Arma
+  </button>
+</div>
+</div>
 
+<h3>Filtro: {{filtroLista}}</h3>
 <table class="table table-striped">
   <thead class="thead-dark">
     <tr>
@@ -63,11 +70,12 @@
       <td>{{arma.calibreId}}</td>  
       <td>
         <div class="btn-group">
-          <button class="btn-sm btn-success" 
-          tooltip="Editar" (click)="openModal(template)">
+          <button class="btn btn-sm btn-success" 
+          tooltip="Editar" (click)="editarArma(arma,template)">
             <i class="fa fa-edit"></i>
           </button>
-          <button class="btn-sm btn-danger" tooltip="Excluir">
+          <button class="btn btn-sm btn-danger" 
+          tooltip="Excluir" (click)="excluirArma(arma, confirm)">
             <i class="fa fa-eraser"></i>
           </button>
         </div>          
@@ -85,15 +93,266 @@
   </tfoot>
 </table>
 
-<ng-template #template>
-  <div class="modal-header">
-    <h4 class="modal-title pull-left">Modal</h4>
-    <button type="button" class="close pull-right" 
-    aria-label="Close" (click)="modalRef.hide()">
-    <span aria-hidden="true">&times;</span>
-  </button>
+<div bsModal #template="bs-modal" class="modal fade" tabindex="-1"
+  role="dialog" aria-labelledby="dialog-sizes-name1">
+    <div class="modal-dialog molda -lg">
+      <div class="modal-content">
+        <div class="modal-header">
+            <h4 id="dialog-sizes-name1" class="modal-title pull=left"> large Model</h4>
+            <button type="button" class="close pull-right" (click)="template.hide()" >
+              <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="registerForm">
+            <div class="form-row">
+              <div class="form-group col-md-12">
+                <label>Marca</label>
+                <input type="text" class="form-control"
+                [ngClass]="{'is-invalid': registerForm.get('marca').errors
+                && registerForm.get('marca').touched}"
+                formControlName="marca" placeholder="Insira a marca">
+                <div *ngIf="registerForm.get('marca').hasError('required')  
+                && registerForm.get('marca').touched" class="invalid-feedback">
+                  A marca é obrigatória!
+                </div>  
+                <div *ngIf="registerForm.get('marca').hasError('minlength')  
+                && registerForm.get('marca').touched" class="invalid-feedback">
+                  Marca deve ter no mínimo 1 caracter
+                </div>
+                <div *ngIf="registerForm.get('marca').hasError('maxlength')  
+                && registerForm.get('marca').touched" class="invalid-feedback">
+                  Marca deve ter no máximo 50 caracteres
+                </div>
+              </div>
+            </div>  
+            <div class="form-row">
+              <div class="form-group col-md-8">
+                <label>Tipo</label>
+                <input type="text" class="form-control" 
+                [ngClass]="{'is-invalid': registerForm.get('tipo').errors
+                && registerForm.get('tipo').touched}"
+                formControlName="tipo" placeholder="">
+                <div class="invalid-feedback">
+                  O tipo da arma é obrigatório!
+                </div>
+              </div>
+              <div class="form-group col-md-4">
+                <label>Modelo</label>
+                <input type="text" class="form-control"
+                [ngClass]="{'is-invalid': registerForm.get('modelo').errors
+                && registerForm.get('modelo').touched}"
+                formControlName="modelo" placeholder="">
+                <div class="invalid-feedback">
+                 Modelo é obrigatório!
+                </div>
+              </div>
+            </div>  
+            <div class="form-row">
+              <div class="form-group col-md-3">
+                <label>País de Fabricação</label>
+                <input type="text" class="form-control"
+                [ngClass]="{'is-invalid': registerForm.get('paisDeFabricacao').errors
+                && registerForm.get('paisDeFabricacao').touched}"
+                formControlName="paisDeFabricacao" placeholder="">
+                <div class="invalid-feedback">
+                  País de fabricação é obrigatório!
+                </div>
+              </div>
+              <div class="form-group col-md-9">
+                <label>Calibre</label>
+                <input type="text" class="form-control" 
+                [ngClass]="{'is-invalid': registerForm.get('calibreId').errors
+                && registerForm.get('calibreId').touched}"
+                formControlName="calibreId" placeholder="">
+                <div class="invalid-feedback">
+                  O calibre é obrigatório!
+                </div>
+              </div>
+            </div>  
+            <div class="form-row">
+              <div class="form-group col-md-8">
+                <label>Alma</label>
+                <input type="text" class="form-control" 
+                [ngClass]="{'is-invalid': registerForm.get('alma').errors
+                && registerForm.get('alma').touched}"
+                formControlName="alma" placeholder="">
+                <div class="invalid-feedback">
+                  A alma é obrigatória!
+                </div>
+              </div>
+              <div class="form-group col-md-4">
+                <label>Raias</label>
+                <input type="text" class="form-control"
+                [ngClass]="{'is-invalid': registerForm.get('raias').errors
+                && registerForm.get('raias').touched}"
+                formControlName="raias" placeholder="">
+                <div class="invalid-feedback">
+                  nº de raias é obrigatória!
+                </div>
+              </div>
+            </div> 
+          
+            <div class="form-row">
+              <div class="form-group col-md-4">
+                <label>Tipo do cano</label>
+                <input type="text" class="form-control" 
+                [ngClass]="{'is-invalid': registerForm.get('tipoDoCano').errors
+                && registerForm.get('tipoDoCano').touched}"
+                formControlName="tipoDoCano" placeholder="">
+                <div class="invalid-feedback">
+                  Tipo do cano é obrigatório!
+                </div>
+              </div>
+              <div class="form-group col-md-4">
+                <label>Comprimento do cano</label>
+                <input type="text" class="form-control" 
+                [ngClass]="{'is-invalid': registerForm.get('comprimentoDoCano').errors
+                && registerForm.get('comprimentoDoCano').touched}"
+                formControlName="comprimentoDoCano" placeholder="">
+                <div class="invalid-feedback">
+                  Comprimento do cano é obrigatório!
+                </div>
+              </div>
+              <div class="form-group col-md-4">
+                <label>Ação</label>
+                <input type="text" class="form-control"
+                [ngClass]="{'is-invalid': registerForm.get('acao').errors
+                && registerForm.get('acao').touched}"
+                formControlName="acao" placeholder="">
+                <div class="invalid-feedback">
+                  A ação é obrigatória!
+                </div>
+              </div>
+            </div> 
+          
+            <div class="form-row">
+              <div class="form-group col-md-8">
+                <label>Carregamento</label>
+                <input type="text" class="form-control"
+                [ngClass]="{'is-invalid': registerForm.get('carregamento').errors
+                && registerForm.get('carregamento').touched}"
+                formControlName="carregamento" placeholder="">
+                <div class="invalid-feedback">
+                  O carregamento é obrigatório!
+                </div>
+              </div>
+              <div class="form-group col-md-4">
+                <label>Percussão</label>
+                <input type="text" class="form-control" 
+                [ngClass]="{'is-invalid': registerForm.get('percussao').errors
+                && registerForm.get('percussao').touched}"
+                formControlName="percussao" placeholder="">
+                <div class="invalid-feedback">
+                  A percussão é obrigatória!
+                </div>
+              </div>
+            </div> 
+          
+            <div class="form-row">
+              <div class="form-group col-md-8">
+                <label>Tiro unitário/múltiplo</label>
+                <input type="text" class="form-control"
+                [ngClass]="{'is-invalid': registerForm.get('tiroUnitario').errors
+                && registerForm.get('tiroUnitario').touched}"
+                formControlName="tiroUnitario" placeholder=""> 
+                <div class="invalid-feedback">
+                  O tipo de tiro é obrigatória!
+                </div>
+              </div>
+              <div class="form-group col-md-4">
+                <label>Repetição</label>
+                <input type="text" class="form-control"
+                [ngClass]="{'is-invalid': registerForm.get('repeticao').errors
+                && registerForm.get('repeticao').touched}"
+                formControlName="repeticao" placeholder="">
+                <div class="invalid-feedback">
+                  A repetição é obrigatória!
+                </div>
+              </div>
+            </div> 
+          
+            <div class="form-row">
+              <div class="form-group col-md-8">
+                <label>Capacidade</label>
+                <input type="text" class="form-control"
+                [ngClass]="{'is-invalid': registerForm.get('capacidade').errors
+                && registerForm.get('capacidade').touched}"
+                formControlName="capacidade" placeholder="">
+                <div class="invalid-feedback">
+                  A capacidade é obrigatória!
+                </div>
+              </div>
+              <div class="form-group col-md-4">
+                <label>Acabamento</label>
+                <input type="text" class="form-control"
+                [ngClass]="{'is-invalid': registerForm.get('acabamento').errors
+                && registerForm.get('acabamento').touched}"
+                formControlName="acabamento" placeholder="">
+                <div class="invalid-feedback">
+                  O acabamento é obrigatório!
+                </div>
+              </div>
+            </div> 
+          
+            <div class="form-row">
+              <div class="form-group col-md-8">
+                <label>Observações</label>
+                <input type="text" class="form-control" formControlName="observacoes" placeholder="">
+                </div>
+              <div class="form-group col-md-4">
+                <label>Imagem</label>
+                <input type="text" class="form-control" 
+                [ngClass]="{'is-invalid': registerForm.get('imagem').errors
+                && registerForm.get('imagem').touched}"
+                formControlName="imagem" placeholder=""> 
+                <div class="invalid-feedback">
+                  A imagem é obrigatória!
+                </div>
+              </div>    
+            </div> 
+            
+          </form>
+        </div>
+        <div class="modal-footer d-flex">
+          <button class="btn btn-secondary" (click)="template.hide()">
+            Fechar
+          </button>
+          <button class="btn btn-primary ml-auto" [disabled]="!registerForm.valid" (click)="salvarAlteracao(template)">
+            Salvar Alterações
+          </button>
+        </div>
+      </div>
+    </div>
 </div>
-<div class="modal-body">
-  This is a modal.
+
+<button class="btn btn-sm btn-danger" tooltip="Excluir" (click)="excluirArma(arma, confirm)">
+	<i class="fa fa-eraser"></i>
+</button>
+
+<div bsModal #confirm="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1">
+	<div class="modal-dialog modal-sm">
+  		<div class="modal-content">
+    		<div class="modal-header">
+      			<h4 class="modal-title pull-left">
+        			Deletando Arma
+      			</h4>
+      			<button type="button" class="close pull-right" (click)="confirm.hide()" aria-label="Close">
+        			<span aria-hidden="true">&times;</span>
+      			</button>
+    		</div>
+    		<div class="modal-body">
+      			<p>{{bodyDeletarArma}}</p>
+    		</div>    
+    		<div class="modal-footer btn-group d-flex">      
+      			<button type="button" class="btn btn-outline-primary" (click)="confirm.hide()">
+        			CANCELAR
+      			</button>
+      			<button type="button" class="btn btn-outline-danger" (click)="confirmeDelete(confirm)">
+          			DELETAR
+        		</button>
+    		</div>
+  		</div>
+	</div>
 </div>
-</ng-template>
+

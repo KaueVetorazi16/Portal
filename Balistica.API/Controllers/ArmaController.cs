@@ -88,14 +88,14 @@ namespace Balistica.API.Controllers
            
         }
 
-        [HttpPut]
+        [HttpPut("{armaId}")]
         public async Task<IActionResult> Put(int armaId, Arma model)
         {
             try
             {
 
-                var evento = await _repo.GetArmaAsyncById(armaId);
-                if(evento == null) return NotFound();
+                var arma = await _repo.GetArmaAsyncById(armaId);
+                if(arma == null) return NotFound();
 
                 _repo.Update(model);
 
@@ -114,16 +114,16 @@ namespace Balistica.API.Controllers
            
         }
 
-        [HttpDelete]
+        [HttpDelete("{armaId}")]
         public async Task<IActionResult> Delete(int armaId)
         {
             try
             {
 
-                var evento = await _repo.GetArmaAsyncById(armaId);
-                if(evento == null) return NotFound();
+                var arma = await _repo.GetArmaAsyncById(armaId);
+                if(arma == null) return NotFound();
 
-                _repo.Delete(evento);
+                _repo.Delete(arma);
 
                 if(await _repo.SaveChangesAsync()){
                     return Ok();

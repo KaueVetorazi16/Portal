@@ -21,4 +21,16 @@ constructor(private http: HttpClient) { }
     getArmaById(id: number): Observable<Arma> {
         return this.http.get<Arma>(`${this.baseUrl}/${id}`);
     }
+
+    postArma(arma: Arma){
+        return this.http.post(this.baseUrl, arma);
+    } 
+
+    putArma(arma: Arma){
+        return this.http.put(`${this.baseUrl}/${arma.id}`, arma);
+    }
+
+    deleteArma(id: number){
+        return this.http.delete(`${this.baseUrl}/${id}`);
+    }
 }
