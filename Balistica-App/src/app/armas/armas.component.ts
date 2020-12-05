@@ -2,6 +2,7 @@ import { ArmaService } from './../_services/arma.service';
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { Arma } from '../_models/Arma';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import {ToastrService} from 'ngx-toastr';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -14,6 +15,7 @@ export class ArmasComponent implements OnInit {
   _filtroLista = '';
   registerForm: FormGroup;
   bodyDeletarArma ='';
+  title = 'Armas';
   armasFiltradas: Arma[];
   armas: Arma[];
   arma: Arma;
@@ -24,7 +26,8 @@ export class ArmasComponent implements OnInit {
   constructor(
     private armaService: ArmaService,
     private modalService: BsModalService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private toastr: ToastrService
     ) { }
 
   get filtroLista(): string{
@@ -41,6 +44,7 @@ export class ArmasComponent implements OnInit {
     this.openModal(template);
     this.arma = arma;
     this.registerForm.patchValue(arma);
+
   }
 
   excluirArma(arma: Arma, template: any){
@@ -54,7 +58,9 @@ export class ArmasComponent implements OnInit {
       () => {
         template.hide();
         this.getArmas();
+        this.toastr.success('Deletado com sucesso!');
       }, error => {
+        this.toastr.error('Erro ao deletar arma!');
         console.log(error);
       }
     );
@@ -82,7 +88,7 @@ export class ArmasComponent implements OnInit {
          this.armas = _armas;
          this.armasFiltradas = this.armas;
       }, error => {
-        error(`Erro ao tentar Carregar eventos: ${error}`);
+        this.toastr.error(`Erro ao tentar carregar armas: ${error}`);
       });
   }
 
@@ -126,19 +132,23 @@ export class ArmasComponent implements OnInit {
           () => {
             template.hide();
             this.getArmas();
+            this.toastr.success('Salvo com sucesso!');
           }, error => {
+            this.toastr.error(`Erro ao inserir arma! ${error}`);
             console.log(error);
           }
         );
         }else {
           console.log('chegou até aqui put');
           this.arma = Object.assign({id: this.arma.id}, this.registerForm.value);
-         console.log(this.arma);
+          console.log(this.arma);
           this.armaService.putArma(this.arma).subscribe(
           () => {
             template.hide();
             this.getArmas();
+            this.toastr.success('Editado com sucesso!');
           }, error => {
+            this.toastr.error(`Erro ao editar arma! ${error}`);
             console.log(error);
           }
         );

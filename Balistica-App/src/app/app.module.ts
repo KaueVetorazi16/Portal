@@ -8,21 +8,32 @@ import { AppRoutingModule } from './app-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import {ToastrModule} from 'ngx-toastr';
+
 import { AppComponent } from './app.component';
 import { ArmasComponent } from './armas/armas.component';
 import { NavComponent } from './nav/nav.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { CalibresComponent } from './calibres/calibres.component';
+import { MunicoesComponent } from './municoes/municoes.component';
+import { TituloComponent } from './_shared/titulo/titulo.component'
 
 @NgModule({
   declarations: [
     AppComponent,
       ArmasComponent,
-      NavComponent
+      NavComponent,
+      DashboardComponent,
+      CalibresComponent,
+      MunicoesComponent,
+      TituloComponent
    ],
   imports: [
     BrowserModule,
     BsDropdownModule.forRoot(),
     TooltipModule.forRoot(),
     ModalModule.forRoot(),
+    ToastrModule.forRoot(),
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
