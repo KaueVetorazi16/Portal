@@ -22,6 +22,8 @@ export class ArmasComponent implements OnInit {
   modoSalvar = 'post';
   imagemLargura: number = 50;
   imagemMargem: number = 2;
+  file: File;
+  fileNameToUpdate: string;
 
   constructor(
     private armaService: ArmaService,
@@ -42,7 +44,9 @@ export class ArmasComponent implements OnInit {
   editarArma(arma: Arma, template: any){
     this.modoSalvar = 'put';
     this.openModal(template);
-    this.arma = arma;
+    this.arma = Object.assign({}, arma);
+    this.fileNameToUpdate = arma.imagem.toString();
+    this.arma.imagem = '';
     this.registerForm.patchValue(arma);
 
   }
@@ -123,37 +127,72 @@ export class ArmasComponent implements OnInit {
   }
 
   salvarAlteracao(template: any){
-      if (this.registerForm.valid){
-        console.log('chegou até aqui');
-        if (this.modoSalvar ==='post'){
-          console.log('chegou até aqui post');
-          this.arma = Object.assign({}, this.registerForm.value);
-          this.armaService.postArma(this.arma).subscribe(
+    if (this.registerForm.valid) {
+      if (this.modoSalvar === 'post') {
+        this.arma = Object.assign({}, this.registerForm.value);
+
+        this.uploadImagem();
+
+        this.armaService.postArma(this.arma).subscribe(
+          (novaArma: Arma) => {
+            template.hide();
+            this.getArmas();
+            this.toastr.success('Inserido com Sucesso!');
+          }, error => {
+            this.toastr.error(`Erro ao Inserir: ${error}`);
+          }
+        );
+      } else {
+        this.arma = Object.assign({ id: this.arma.id }, this.registerForm.value);
+
+        this.uploadImagem();
+
+        this.armaService.putArma(this.arma).subscribe(
           () => {
             template.hide();
             this.getArmas();
-            this.toastr.success('Salvo com sucesso!');
+            this.toastr.success('Editado com Sucesso!');
           }, error => {
-            this.toastr.error(`Erro ao inserir arma! ${error}`);
-            console.log(error);
+            this.toastr.error(`Erro ao Editar: ${error}`);
           }
         );
-        }else {
-          console.log('chegou até aqui put');
-          this.arma = Object.assign({id: this.arma.id}, this.registerForm.value);
-          console.log(this.arma);
-          this.armaService.putArma(this.arma).subscribe(
-          () => {
-            template.hide();
-            this.getArmas();
-            this.toastr.success('Editado com sucesso!');
-          }, error => {
-            this.toastr.error(`Erro ao editar arma! ${error}`);
-            console.log(error);
-          }
-        );
-        }
       }
+    }
+  }
+
+  onFileChange(event){
+      
+      const reader = new FileReader();
+
+      if (event.target.files && event.target.files.length){
+         this.file = event.target.files;
+         console.log(this.file);
+      }
+  }
+
+  uploadImagem() {
+    if (this.modoSalvar === 'post') {
+      const nomeArquivo = this.arma.imagem.split('\\', 3);
+      this.arma.imagem = nomeArquivo[2];
+
+      this.armaService.postUpload(this.file, nomeArquivo[2])
+        .subscribe(
+          () => {            
+            this.getArmas();
+          }
+        );
+    } else {
+      const nomeArquivo = this.arma.imagem.split('\\', 3);
+      this.arma.imagem = nomeArquivo[2];
+     // this.arma.imagem = this.fileNameToUpdate;
+      this.armaService.postUpload(this.file, nomeArquivo[2])
+        .subscribe(
+          () => {
+         
+            this.getArmas();
+          }
+        );
+    }
   }
 
 }

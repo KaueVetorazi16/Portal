@@ -23,6 +23,7 @@
   <thead class="thead-dark">
     <tr>
       <th>#</th>
+      <th>Imagem</th>   
       <th>Marca</th>
       <th>Tipo</th>
       <th>Pais De Fabricação</th>
@@ -39,7 +40,6 @@
       <th>Capacidade</th>
       <th>Acabamento</th>
       <th>Obsevações</th>
-      <th>Imagem</th>   
       <th>Calibre</th>
       <th>Opções</th>  
    
@@ -48,6 +48,11 @@
   <tbody *ngIf="armas && armas.length">
     <tr *ngFor="let arma of armasFiltradas">
       <td>{{arma.id}}</td>
+      <td>
+        <img src="http://localhost:5000/resources/images/{{arma.imagem}}"
+        [style.width.px]="imagemLargura"
+        [style.margin.px]="imagemMargem">       
+      </td>
       <td>{{arma.marca}}</td>
       <td>{{arma.paisDeFabricacao}}</td>
       <td>{{arma.tipo}}</td>
@@ -63,12 +68,8 @@
       <td>{{arma.repeticao}}</td>
       <td>{{arma.capacidade}}</td>
       <td>{{arma.acabamento}}</td>
-      <td>{{arma.observacoes}}</td>           
-      <td>
-        <img src="http://localhost:5000/img/{{arma.imagem}}"
-        [style.width.px]="imagemLargura"
-        [style.margin.px]="imagemMargem">       
-      </td>
+      <td>{{arma.observacoes}}</td>         
+     
       <td>{{arma.calibreId}}</td>  
       <td>
         <div class="btn-group">
@@ -108,7 +109,7 @@
         <div class="modal-body">
           <form [formGroup]="registerForm">
             <div class="form-row">
-              <div class="form-group col-md-12">
+              <div class="form-group col-md-4">
                 <label>Marca</label>
                 <input type="text" class="form-control"
                 [ngClass]="{'is-invalid': registerForm.get('marca').errors
@@ -129,7 +130,7 @@
               </div>
             </div>  
             <div class="form-row">
-              <div class="form-group col-md-8">
+              <div class="form-group col-md-4">
                 <label>Tipo</label>
                 <input type="text" class="form-control" 
                 [ngClass]="{'is-invalid': registerForm.get('tipo').errors
@@ -149,9 +150,7 @@
                  Modelo é obrigatório!
                 </div>
               </div>
-            </div>  
-            <div class="form-row">
-              <div class="form-group col-md-3">
+              <div class="form-group col-md-4">
                 <label>País de Fabricação</label>
                 <input type="text" class="form-control"
                 [ngClass]="{'is-invalid': registerForm.get('paisDeFabricacao').errors
@@ -161,7 +160,10 @@
                   País de fabricação é obrigatório!
                 </div>
               </div>
-              <div class="form-group col-md-9">
+            </div>
+
+              <div class="form-row">
+              <div class="form-group col-md-4">
                 <label>Calibre</label>
                 <input type="text" class="form-control" 
                 [ngClass]="{'is-invalid': registerForm.get('calibreId').errors
@@ -171,9 +173,8 @@
                   O calibre é obrigatório!
                 </div>
               </div>
-            </div>  
-            <div class="form-row">
-              <div class="form-group col-md-8">
+                  
+              <div class="form-group col-md-4">
                 <label>Alma</label>
                 <input type="text" class="form-control" 
                 [ngClass]="{'is-invalid': registerForm.get('alma').errors
@@ -193,7 +194,8 @@
                   nº de raias é obrigatória!
                 </div>
               </div>
-            </div> 
+            </div>
+         
           
             <div class="form-row">
               <div class="form-group col-md-4">
@@ -206,8 +208,9 @@
                   Tipo do cano é obrigatório!
                 </div>
               </div>
+
               <div class="form-group col-md-4">
-                <label>Comprimento do cano</label>
+                <label>Comp. do cano</label>
                 <input type="text" class="form-control" 
                 [ngClass]="{'is-invalid': registerForm.get('comprimentoDoCano').errors
                 && registerForm.get('comprimentoDoCano').touched}"
@@ -216,6 +219,7 @@
                   Comprimento do cano é obrigatório!
                 </div>
               </div>
+
               <div class="form-group col-md-4">
                 <label>Ação</label>
                 <input type="text" class="form-control"
@@ -226,10 +230,12 @@
                   A ação é obrigatória!
                 </div>
               </div>
+
             </div> 
           
             <div class="form-row">
-              <div class="form-group col-md-8">
+
+              <div class="form-group col-md-4">
                 <label>Carregamento</label>
                 <input type="text" class="form-control"
                 [ngClass]="{'is-invalid': registerForm.get('carregamento').errors
@@ -239,6 +245,7 @@
                   O carregamento é obrigatório!
                 </div>
               </div>
+
               <div class="form-group col-md-4">
                 <label>Percussão</label>
                 <input type="text" class="form-control" 
@@ -249,11 +256,9 @@
                   A percussão é obrigatória!
                 </div>
               </div>
-            </div> 
-          
-            <div class="form-row">
-              <div class="form-group col-md-8">
-                <label>Tiro unitário/múltiplo</label>
+
+              <div class="form-group col-md-4">
+                <label>Tiro U/M</label>
                 <input type="text" class="form-control"
                 [ngClass]="{'is-invalid': registerForm.get('tiroUnitario').errors
                 && registerForm.get('tiroUnitario').touched}"
@@ -262,6 +267,11 @@
                   O tipo de tiro é obrigatória!
                 </div>
               </div>
+
+            </div> 
+          
+            <div class="form-row">
+              
               <div class="form-group col-md-4">
                 <label>Repetição</label>
                 <input type="text" class="form-control"
@@ -272,10 +282,10 @@
                   A repetição é obrigatória!
                 </div>
               </div>
-            </div> 
+           
           
-            <div class="form-row">
-              <div class="form-group col-md-8">
+           
+              <div class="form-group col-md-4">
                 <label>Capacidade</label>
                 <input type="text" class="form-control"
                 [ngClass]="{'is-invalid': registerForm.get('capacidade').errors
@@ -285,6 +295,7 @@
                   A capacidade é obrigatória!
                 </div>
               </div>
+
               <div class="form-group col-md-4">
                 <label>Acabamento</label>
                 <input type="text" class="form-control"
@@ -298,19 +309,27 @@
             </div> 
           
             <div class="form-row">
-              <div class="form-group col-md-8">
+              <div class="form-group col-md-4">
                 <label>Observações</label>
-                <input type="text" class="form-control" formControlName="observacoes" placeholder="">
+                <input type="text" #file class="form-control" formControlName="observacoes" placeholder="">
                 </div>
+
               <div class="form-group col-md-4">
                 <label>Imagem</label>
-                <input type="text" class="form-control" 
-                [ngClass]="{'is-invalid': registerForm.get('imagem').errors
-                && registerForm.get('imagem').touched}"
-                formControlName="imagem" placeholder=""> 
-                <div class="invalid-feedback">
-                  A imagem é obrigatória!
-                </div>
+                <table>
+                  <tr>
+                    <td>
+                      <button class="btn btn-success" (click)="file.click()">
+                        Enviar Imagem
+                      </button>
+                      <input type="file" #file [ngClass]="{'is-invalid': registerForm.get('imagem').errors
+                      && registerForm.get('imagem').touched}" (change)="onFileChange($event)"
+                      class="form-control" formControlName="imagem" placeholder=""> 
+                    </td>
+                  </tr>
+                </table>
+                
+               
               </div>    
             </div> 
             

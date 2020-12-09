@@ -1,6 +1,7 @@
 using AutoMapper;
 using Balistica.API.Dtos;
 using Balistica.Domain;
+using Balistica.Domain.Identity;
 
 namespace Balistica.API.Helpers
 {
@@ -8,7 +9,9 @@ namespace Balistica.API.Helpers
     {
         public AutoMapperProfiles()
         {
-            CreateMap<Arma, ArmaDto>();
+            CreateMap<Arma, ArmaDto>().ReverseMap();
+            CreateMap<User, UserDto>().ReverseMap();
+            CreateMap<User, UserLoginDto>().ReverseMap();
         }   
     }
 }
