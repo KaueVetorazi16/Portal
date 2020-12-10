@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Arma } from '../_models/Arma';
@@ -9,8 +9,10 @@ import { Arma } from '../_models/Arma';
 export class ArmaService {
 
     baseUrl = 'http://localhost:5000/portal/arma';
-
-constructor(private http: HttpClient) { }
+    
+constructor(private http: HttpClient) { 
+    
+}
 
     getAllArma(): Observable<Arma[]> {
         return this.http.get<Arma[]>(this.baseUrl);

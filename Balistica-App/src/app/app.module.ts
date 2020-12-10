@@ -1,6 +1,8 @@
+import { AuthInterceptor } from './auth/auth.interceptor';
+import { ArmaService } from './_services/arma.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { ModalModule } from 'ngx-bootstrap/modal';
@@ -16,17 +18,24 @@ import { NavComponent } from './nav/nav.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { CalibresComponent } from './calibres/calibres.component';
 import { MunicoesComponent } from './municoes/municoes.component';
-import { TituloComponent } from './_shared/titulo/titulo.component'
+import { TituloComponent } from './_shared/titulo/titulo.component';
+import { UserComponent } from './user/user.component';
+import { RegistrationComponent } from './user/registration/registration.component';
+import { LoginComponent } from './user/login/login.component';
+
 
 @NgModule({
-  declarations: [
+  declarations: [	
     AppComponent,
       ArmasComponent,
       NavComponent,
       DashboardComponent,
       CalibresComponent,
       MunicoesComponent,
-      TituloComponent
+      TituloComponent,
+      UserComponent,
+      RegistrationComponent,
+      LoginComponent
    ],
   imports: [
     BrowserModule,
@@ -40,7 +49,14 @@ import { TituloComponent } from './_shared/titulo/titulo.component'
     BrowserAnimationsModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [
+    ArmaService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
