@@ -3,8 +3,10 @@ using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Balistica.Domain;
 using Balistica.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+
 
 namespace Balistica.API.Controllers
 {
@@ -50,7 +52,7 @@ namespace Balistica.API.Controllers
                 var fullPath = Path.Combine(pathToSave, filename.Replace("\""," ").Trim());
 
                 using (var stream = new FileStream(fullPath, FileMode.Create)){
-                    file.CopyTo(stream);
+                  await file.CopyToAsync(stream);
                 }
             }
 

@@ -1,6 +1,7 @@
 using Balistica.Domain;
 using System.ComponentModel.DataAnnotations;
 
+
 namespace Balistica.Domain
 {
     public class Arma
@@ -26,13 +27,13 @@ namespace Balistica.Domain
         [Required(ErrorMessage = "Raias is requerid.")]      
         public int Raias { get; set; }
      
-        [Required(ErrorMessage = "Raias is requerid.")]
+        [Required(ErrorMessage = "Tipo do cano is requerid.")]
         public string TipoDoCano { get; set; }
           
-        [Required(ErrorMessage = "Tipo do ano is requerid.")]
+        [Required(ErrorMessage = "Comprimento is requerid.")]
         public string ComprimentoDoCano { get; set; }
        
-        [Required(ErrorMessage = "Comprimento is requerid.")]
+        [Required(ErrorMessage = "Ação is requerid.")]
         public string Acao { get; set; }
         
         [Required(ErrorMessage = "Carregamento is requerid.")]
@@ -42,23 +43,25 @@ namespace Balistica.Domain
         public string Percussao { get; set; }
         
         [Required(ErrorMessage = "Tiro unitário is requerid.")]
-        public string TiroUnitario { get; set; }
-        
-        [Required(ErrorMessage = "Repetição is requerid.")]
-        public string Repeticao { get; set; }
+        public string SistemaDeFuncionamento { get; set; }    
        
         [Required(ErrorMessage = "Capacidade is requerid.")]
         public string Capacidade { get; set;}
         
         [Required(ErrorMessage = "Acabamento is requerid.")]
         public string Acabamento { get; set; }
+
+        [Required(ErrorMessage = "Mobilidade is requerid.")]
+        public string Mobilidade { get; set; }
        
         public string Observacoes { get; set; }
         [Required(ErrorMessage = "Marca is requerid.")]
         public string Imagem { get; set; }
         
         [Required(ErrorMessage = "Calibre is requerid.")]
-        public string CalibreId {get;set ;}
+        public string CalibreId { get; set; }
+        public Calibre Calibre {get;}
+
    
 
     }

@@ -1,4 +1,233 @@
 <app-titulo [title]="title"></app-titulo>
-<p>
-  municoes works!
-</p>
+
+<div class="d-flex">
+<div class="form-inline mr-auto">
+  <div class="form-group mb-2">
+    <label class="mr-2"></label> <input type="text" 
+    class="form-control mr-2" 
+    placeholder="buscar"
+    [(ngModel)]= "filtroLista">
+    
+  </div>
+</div>
+<div >
+  <button class="btn btn-outline-primary" (click)="novaMunicao(template)">
+    <i class="fa fa-plus-circle"></i>
+    Nova Municão
+  </button>
+</div>
+</div>
+
+
+<table class="table table-striped">
+  <thead class="thead-dark">
+    <tr>
+      <th>#</th>  
+      <th>Marca</th>
+      <th>Tipo do Estojo</th>
+      <th>Tipo do Projétil</th>
+      <th>Tipo da espoleta</th>
+      <th>Imagem</th> 
+      <th>Calibre </th>
+      <th>Opções</th>
+    </tr>
+  </thead>
+  <tbody *ngIf="municoes && municoes.length">
+    <tr *ngFor="let municoes of municoesFiltradas">
+      <td>{{municoes.id}}</td>
+      <td>{{municoes.marca}}</td>
+      <td>{{municoes.tipoEstojo}}</td>
+      <td>{{municoes.tipoProjetil}}</td>
+      <td>{{municoes.tipoEspoleta}}</td>
+      <td>
+        <img src="http://localhost:5000/resources/images/{{municoes.imagem}}"
+        [style.width.px]="imagemLargura"
+        [style.margin.px]="imagemMargem">       
+      </td> 
+      <td>{{municoes.calibreId}}</td>           
+      <td>
+        <div class="btn-group">
+          <button class="btn btn-sm btn-success" 
+          tooltip="Editar" (click)="editarMunicao(municao,template)">
+            <i class="fa fa-edit"></i>
+          </button>
+          <button class="btn btn-sm btn-danger" 
+          tooltip="Excluir" (click)="excluirMunicao(municao, confirm)">
+            <i class="fa fa-eraser"></i>
+          </button>
+        </div>          
+      </td>
+    </tr>
+  </tbody>
+  <tfoot *ngIf="!municoes">
+    <tr>
+      <td colspan="6" class="text-center">
+        <h3>
+          Nenhuma munição encontrada
+        </h3>
+      </td>
+    </tr>
+  </tfoot>
+</table>
+
+<div bsModal #template="bs-modal" class="modal fade" tabindex="-1"
+  role="dialog" aria-labelledby="dialog-sizes-name1">
+    <div class="modal-dialog molda -lg">
+      <div class="modal-content">
+        <div class="modal-header">
+            <h4 id="dialog-sizes-name1" class="modal-title pull=left"> Cadastrar nova munição</h4>
+            <button type="button" class="close pull-right" (click)="template.hide()" >
+              <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        
+        <div class="modal-body">
+
+          <form [formGroup]="registerForm">
+
+            <div class="form-row">
+
+              <div class="form-group col-md-4">
+                <label>Marca</label>
+                <input type="text" class="form-control"
+                [ngClass]="{'is-invalid': registerForm.get('marca').errors
+                && registerForm.get('marca').touched}"
+                formControlName="marca" placeholder="Insira a marca">
+                <div *ngIf="registerForm.get('marca').hasError('required')  
+                && registerForm.get('marca').touched" class="invalid-feedback">
+                  A marca é obrigatória!
+                </div>  
+              </div> 
+
+              <div class="form-group col-md-4">
+              <label>Tipo do estojo</label>
+              <select class="custom-select" class="form-control" 
+              [ngClass]="{'is-invalid': registerForm.get('tipoEstojo').errors
+              && registerForm.get('tipoEstojo').touched}"
+              formControlName="tipoEstojo" placeholder="Insira o tipo">
+              <option selected>Abra este menu select</option>
+                                   
+                <option value="Latão"> Latão </option>
+                <option value="Niquelado"> Niquelado </option>
+                <option value="Polímero"> Polímero </option>
+                <option value="Alumínio"> Alumínio </option>
+                <option value="Papelão"> Papelão </option>
+                <option value="Aço"> Aço </option>
+                               
+              </select>
+              <div *ngIf="registerForm.get('tipoEspoleta').hasError('required')  
+              && registerForm.get('tipoEstojo').touched" class="invalid-feedback">
+               Tipo do estojo é requerido
+              </div>  
+            </div> 
+
+              <div class="form-group col-md-4">
+                <label>Tipo do Projétil</label>
+                <input type="text" class="form-control"
+                [ngClass]="{'is-invalid': registerForm.get('tipoProjetil').errors
+                && registerForm.get('tipoProjetil').touched}"
+                formControlName="tipoProjetil" placeholder="Insira o tipo do projétil">
+                <div *ngIf="registerForm.get('tipoProjetil').hasError('required')  
+                && registerForm.get('tipoProjetil').touched" class="invalid-feedback">
+                  O tipo do projétil é obrigatório!
+                </div>  
+              </div> 
+
+              <div class="form-group col-md-4">
+                <label>Tipo da espoleta</label>
+                <input type="text" class="form-control"
+                [ngClass]="{'is-invalid': registerForm.get('tipoEspoleta').errors
+                && registerForm.get('tipoEspoleta').touched}"
+                formControlName="tipoEspoleta" placeholder="Insira o tipo da espoleta">
+                <div *ngIf="registerForm.get('tipoEspoleta').hasError('required')  
+                && registerForm.get('tipoEspoleta').touched" class="invalid-feedback">
+                  O tipo da espoleta é obrigatório!
+                </div>  
+              </div> 
+
+              <div class="form-group col-md-4">
+                
+                
+                <label>Calibre</label>
+                <select class="custom-select" class="form-control" 
+                [ngClass]="{'is-invalid': registerForm.get('calibreId').errors
+                && registerForm.get('calibreId').touched}"
+                formControlName="calibreId" placeholder="Insira o calibre">
+                <option selected>Abra este menu select</option>
+                  <ng-container *ngFor="let calibre of calibres">                    
+                  <option value="{{calibre.id}}"> {{calibre.nominal}}</option>
+                  </ng-container>                 
+                </select>
+                <div *ngIf="registerForm.get('calibreId').hasError('required')  
+                && registerForm.get('calibreId').touched" class="invalid-feedback">
+                  O calibre é obrigatório!
+                </div>  
+              </div> 
+
+             
+              <div class="form-group col-md-4">
+                <label>Imagem</label>
+                <table>             
+                      <tr>
+                        <td>
+                      <button class="btn btn-success" (click)="file.click()">Enviar Imagem</button>
+                      <input type="file" #file [ngClass]="{'is-invalid': registerForm.get('imagem').errors
+                      && registerForm.get('imagem').touched}" (change)="onFileChange($event)"
+                      class="form-control is-invalid" formControlName="imagem" placeholder=""
+                      style="display: none"> 
+                      <div *ngIf="registerForm.get('imagem').hasError('required')
+                      && registerForm.get('imagem').touched"
+                      class="invalid-feedback">
+                    </div>
+                  </td>
+                  </tr>
+                  </table>
+              </div>    
+            </div> 
+            
+          </form>
+
+        </div>
+
+        <div class="modal-footer d-flex">
+          <button class="btn btn-secondary" (click)="template.hide()">
+            Fechar
+          </button>
+          <button class="btn btn-primary ml-auto" [disabled]="!registerForm.valid" (click)="salvarAlteracao(template)">
+            Salvar Alterações
+          </button>
+        </div>
+      </div>
+    </div>
+</div>
+
+<button class="btn btn-sm btn-danger" tooltip="Excluir" (click)="excluirMunicao(municao, confirm)">
+	<i class="fa fa-eraser"></i>
+</button>
+
+<div bsModal #confirm="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1">
+	<div class="modal-dialog modal-sm">
+  		<div class="modal-content">
+    		<div class="modal-header">
+      			<h4 class="modal-title pull-left">
+        			Deletando Municao
+      			</h4>
+      			<button type="button" class="close pull-right" (click)="confirm.hide()" aria-label="Close">
+        			<span aria-hidden="true">&times;</span>
+      			</button>
+    		</div>
+    		<div class="modal-body">
+      			<p>{{bodyDeletarMunicao}}</p>
+    		</div>    
+    		<div class="modal-footer btn-group d-flex">      
+      			<button type="button" class="btn btn-outline-primary" (click)="confirm.hide()">
+        			CANCELAR
+      			</button>
+      			<button type="button" class="btn btn-outline-danger" (click)="confirmeDelete(confirm)">
+          		DELETAR
+        		</button>
+    		</div>
+  		</div>
+	</div>
+</div>
+

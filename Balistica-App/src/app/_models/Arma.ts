@@ -1,3 +1,4 @@
+import { Calibre } from './Calibre';
 export interface Arma {
     id: number;
     marca: string;
@@ -11,11 +12,11 @@ export interface Arma {
     acao: string;
     carregamento: string;
     percussao: string;
-    tiroUnitario: string;
-    repeticao: string;
+    sistemaDeFuncionamento: string;
     capacidade: string;
     acabamento: string;
+    mobilidade: string;
     observacoes: string;
     imagem: string;
-    calibreId: string;
+    calibreId: number;
 }

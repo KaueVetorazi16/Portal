@@ -24,10 +24,10 @@ namespace Balistica.Repository.Migrations
                     Acao = table.Column<string>(nullable: false),
                     Carregamento = table.Column<string>(nullable: false),
                     Percussao = table.Column<string>(nullable: false),
-                    TiroUnitario = table.Column<string>(nullable: false),
-                    Repeticao = table.Column<string>(nullable: false),
+                    SistemaDeFuncionamento = table.Column<string>(nullable: false),
                     Capacidade = table.Column<string>(nullable: false),
                     Acabamento = table.Column<string>(nullable: false),
+                    Mobilidade = table.Column<string>(nullable: false),
                     Observacoes = table.Column<string>(nullable: true),
                     Imagem = table.Column<string>(nullable: false),
                     CalibreId = table.Column<string>(nullable: false)
@@ -85,7 +85,7 @@ namespace Balistica.Repository.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Nominal = table.Column<string>(nullable: true),
+                    Nominal = table.Column<string>(nullable: false),
                     Imagem = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -99,12 +99,12 @@ namespace Balistica.Repository.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Marca = table.Column<string>(nullable: true),
-                    TipoEstojo = table.Column<string>(nullable: true),
-                    TipoProjetil = table.Column<string>(nullable: true),
-                    TipoEspoleta = table.Column<string>(nullable: true),
+                    Marca = table.Column<string>(nullable: false),
+                    TipoEstojo = table.Column<string>(nullable: false),
+                    TipoProjetil = table.Column<string>(nullable: false),
+                    TipoEspoleta = table.Column<string>(nullable: false),
                     Imagem = table.Column<string>(nullable: true),
-                    CalibreId = table.Column<string>(nullable: true)
+                    CalibreId = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {

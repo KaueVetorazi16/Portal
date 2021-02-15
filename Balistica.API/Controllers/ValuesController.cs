@@ -6,12 +6,14 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Balistica.Repository;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Balistica.API.Controllers
 {
     // configuração de rota
     [Route("portal/[controller]")]
     [ApiController]
+    [AllowAnonymous]
     public class ValuesController : ControllerBase
     {
         public BalisticaContext Context { get; }

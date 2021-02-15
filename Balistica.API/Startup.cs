@@ -102,6 +102,7 @@ namespace Balistica.API
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
            // Não está usando HTTPS
            // app.UseHttpsRedirection();
+           // Faz com que possa acessar as imagens no servidor.
            app.UseStaticFiles();
             app.UseStaticFiles(new StaticFileOptions(){
                 FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"Resources")),

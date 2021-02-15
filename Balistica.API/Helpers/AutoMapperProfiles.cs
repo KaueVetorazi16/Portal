@@ -10,8 +10,10 @@ namespace Balistica.API.Helpers
         public AutoMapperProfiles()
         {
             CreateMap<Arma, ArmaDto>().ReverseMap();
+            CreateMap<Municao, MunicaoDto>().ReverseMap();
+            CreateMap<Calibre, CalibreDto>().ReverseMap();
             CreateMap<User, UserDto>().ReverseMap();
-            CreateMap<User, UserLoginDto>().ReverseMap();
+            CreateMap<userLogin, UserLoginDto>().ReverseMap();
         }   
     }
 }

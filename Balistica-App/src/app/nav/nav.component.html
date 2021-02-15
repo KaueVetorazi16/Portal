@@ -1,20 +1,31 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-dark">
   <div class="container">
-  <a class="navbar-brand" routerLink="dashboard">Portal WikeBalística</a>
+  <a class="navbar-brand" routerLink="dashboard"> Portal WikeBalística</a>
+  
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
+
   <div *ngIf="loggedIn()" class="collapse navbar-collapse" id="navbarsExampleDefault">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link" routerLink="armas">Armas</a>
+        <a class="nav-link" routerLink="armas">
+          <img alt="Brand" src="http://localhost:5000/resources/images/emoji.png"
+          [style.width.px]="120"
+          [style.margin.px]="2">Armas</a>
       </li>
       <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link" routerLink="municoes">Munições</a>
+        <a class="nav-link" routerLink="municoes">
+          <img alt="Brand" src="http://localhost:5000/resources/images/municoes.jpg"
+          [style.width.px]="80"
+          [style.margin.px]="2">Munições</a>
       </li>
       <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link" routerLink="calibres" >Calibres</a>
+        <a class="nav-link" routerLink="calibres" >
+          <img alt="Brand" src="http://localhost:5000/resources/images/saami.jpg"
+          [style.width.px]="80"
+          [style.margin.px]="2">Calibres</a>
       </li>
       
     </ul>

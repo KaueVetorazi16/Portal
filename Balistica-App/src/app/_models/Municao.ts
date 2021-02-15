@@ -6,6 +6,6 @@ export interface Municao {
          tipoProjetil: string;
          tipoEspoleta: string;
          imagem: string;
-         calibreId: string;
+         calibreId: number;
 
 }

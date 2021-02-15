@@ -8,8 +8,10 @@ import { Arma } from '../_models/Arma';
 })
 export class ArmaService {
 
+    //URL da web api escrita em .Net Core (Balistica.API)
     baseUrl = 'http://localhost:5000/portal/arma';
     
+// Injeção de depêndencia http
 constructor(private http: HttpClient) { 
     
 }

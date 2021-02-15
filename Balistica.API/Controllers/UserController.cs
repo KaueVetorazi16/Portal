@@ -20,6 +20,7 @@ namespace Balistica.API.Controllers
 
     [Route("portal/[controller]")]
     [ApiController]
+    [AllowAnonymous]
     public class UserController : ControllerBase
     {
 
@@ -39,8 +40,7 @@ namespace Balistica.API.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet("GetUser")]
-        
+        [HttpGet("GetUser")]        
         public async Task<IActionResult> GetUser(){
             return Ok(new UserDto());
         }

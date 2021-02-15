@@ -1,4 +1,154 @@
 <app-titulo [title]="title"></app-titulo>
-<p>
-  calibres works!
-</p>
+
+<div class="d-flex">
+<div class="form-inline mr-auto">
+  <div class="form-group mb-2">
+    <label class="mr-2">Filtro por calibre nominal:</label> <input type="text" 
+    class="form-control mr-2" 
+    placeholder="buscar"
+    [(ngModel)]= "filtroLista">
+    
+  </div>
+</div>
+<div >
+  <button class="btn btn-outline-primary" (click)="novoCalibre(template)">
+    <i class="fa fa-plus-circle"></i>
+    Novo Calibre
+  </button>
+</div>
+</div>
+
+
+<table class="table table-striped">
+  <thead class="thead-dark">
+    <tr>
+      <th>#</th>  
+      <th>Nominal</th>
+      <th>Imagem</th> 
+      <th>Opções</th>
+    </tr>
+  </thead>
+  <tbody *ngIf="calibres && calibres.length">
+    <tr *ngFor="let calibre of calibresFiltradas">
+      <td>{{calibre.id}}</td>
+      <td>{{calibre.nominal}}</td>
+      <td>
+        <img src="http://localhost:5000/resources/images/{{calibre.imagem}}"
+        [style.width.px]="imagemLargura"
+        [style.margin.px]="imagemMargem">       
+      </td>      
+      <td>
+        <div class="btn-group">
+          <button class="btn btn-sm btn-success" 
+          tooltip="Editar" (click)="editarCalibre(calibre,template)">
+            <i class="fa fa-edit"></i>
+          </button>
+          <button class="btn btn-sm btn-danger" 
+          tooltip="Excluir" (click)="excluirCalibre(calibre, confirm)">
+            <i class="fa fa-eraser"></i>
+          </button>
+        </div>          
+      </td>
+    </tr>
+  </tbody>
+  <tfoot *ngIf="!calibres">
+    <tr>
+      <td colspan="6" class="text-center">
+        <h3>
+          Nenhum calibre encontrado
+        </h3>
+      </td>
+    </tr>
+  </tfoot>
+</table>
+
+<div bsModal #template="bs-modal" class="modal fade" tabindex="-1"
+  role="dialog" aria-labelledby="dialog-sizes-name1">
+    <div class="modal-dialog molda -lg">
+      <div class="modal-content">
+        <div class="modal-header">
+            <h4 id="dialog-sizes-name1" class="modal-title pull=left"> Cadastrar  novo app-calibres</h4>
+            <button type="button" class="close pull-right" (click)="template.hide()" >
+              <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+
+          <form [formGroup]="registerForm">
+
+            <div class="form-row">
+
+              <div class="form-group col-md-4">
+                <label>Nominal</label>
+                <input type="text" class="form-control"
+                [ngClass]="{'is-invalid': registerForm.get('nominal').errors
+                && registerForm.get('nominal').touched}"
+                formControlName="nominal" placeholder="Insira o calibre nominal">
+                <div *ngIf="registerForm.get('nominal').hasError('required')  
+                && registerForm.get('nominal').touched" class="invalid-feedback">
+                  O calibre é obrigatório!
+                </div>  
+              </div> 
+
+              <div class="form-group col-md-4">
+                <label>Imagem</label>
+                <table>
+                  <tr>
+                    <td>
+                      
+                      <input type="file" #file [ngClass]="{'is-invalid': registerForm.get('imagem').errors
+                      && registerForm.get('imagem').touched}" (change)="onFileChange($event)"
+                      class="form-control" formControlName="imagem" placeholder=""> 
+                    </td>
+                  </tr>
+                </table>               
+               
+              </div>    
+            </div> 
+            
+          </form>
+
+        </div>
+
+        <div class="modal-footer d-flex">
+          <button class="btn btn-secondary" (click)="template.hide()">
+            Fechar
+          </button>
+          <button class="btn btn-primary ml-auto" [disabled]="!registerForm.valid" (click)="salvarAlteracao(template)">
+            Salvar Alterações
+          </button>
+        </div>
+      </div>
+    </div>
+</div>
+
+<button class="btn btn-sm btn-danger" tooltip="Excluir" (click)="excluirCalibre(calibre, confirm)">
+	<i class="fa fa-eraser"></i>
+</button>
+
+<div bsModal #confirm="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1">
+	<div class="modal-dialog modal-sm">
+  		<div class="modal-content">
+    		<div class="modal-header">
+      			<h4 class="modal-title pull-left">
+        			Deletando Calibre
+      			</h4>
+      			<button type="button" class="close pull-right" (click)="confirm.hide()" aria-label="Close">
+        			<span aria-hidden="true">&times;</span>
+      			</button>
+    		</div>
+    		<div class="modal-body">
+      			<p>{{bodyDeletarCalibre}}</p>
+    		</div>    
+    		<div class="modal-footer btn-group d-flex">      
+      			<button type="button" class="btn btn-outline-primary" (click)="confirm.hide()">
+        			CANCELAR
+      			</button>
+      			<button type="button" class="btn btn-outline-danger" (click)="confirmeDelete(confirm)">
+          		DELETAR
+        		</button>
+    		</div>
+  		</div>
+	</div>
+</div>
+

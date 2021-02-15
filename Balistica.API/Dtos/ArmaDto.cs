@@ -14,12 +14,13 @@ namespace Balistica.API.Dtos
         public string Acao { get; set; }
         public string Carregamento { get; set; }
         public string Percussao { get; set; }
-        public string TiroUnitario { get; set; }
-        public string Repeticao { get; set; }
+        public string SistemaDeFuncionamento { get; set; }
         public string Capacidade { get; set;}
         public string Acabamento { get; set; }
+        public string Mobilidade { get; set; }
         public string Observacoes { get; set; }
         public string Imagem { get; set; }
         public string CalibreId {get;set ;}
+        public CalibreDto Calibre { get; set; }
     }
 }

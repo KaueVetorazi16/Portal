@@ -20,7 +20,7 @@ export class ArmasComponent implements OnInit {
   armas: Arma[];
   arma: Arma;
   modoSalvar = 'post';
-  imagemLargura: number = 50;
+  imagemLargura: number = 100;
   imagemMargem: number = 2;
   file: File;
   fileNameToUpdate: string;
@@ -80,6 +80,7 @@ export class ArmasComponent implements OnInit {
     template.show();
   }
 
+  // O ngOnInit faz com o que está dentro dele seja executado antes do HTML
   ngOnInit() {
     this.validation();
     this.getArmas();
@@ -103,6 +104,7 @@ export class ArmasComponent implements OnInit {
       )
   }
 
+  //O objeto dentro do formGroup corresponde a cada um dos campos do formulário que eu quero validar
   validation(){
     this.registerForm = this.fb.group({
     marca: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
@@ -116,10 +118,10 @@ export class ArmasComponent implements OnInit {
     acao: ['', Validators.required],
     carregamento: ['', Validators.required],
     percussao: ['', Validators.required],
-    tiroUnitario: ['', Validators.required],
-    repeticao: ['', Validators.required],
+    sistemaDeFuncionamento: ['', Validators.required],
     capacidade: ['', Validators.required],
     acabamento: ['', Validators.required],
+    mobilidade: ['', Validators.required],
     observacoes: ['', Validators.required],
     imagem: ['', Validators.required],
     calibreId: ['', Validators.required]
