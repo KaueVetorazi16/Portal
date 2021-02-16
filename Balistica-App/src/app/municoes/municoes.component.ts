@@ -16,6 +16,9 @@ import { ToastrService } from 'ngx-toastr';
 export class MunicoesComponent implements OnInit {
   
   _filtroLista = '';
+  _filtroListaTipoEstojo = '';
+  _filtroListaTipoProjetil = '';
+  _filtroListaTipoEspoleta = '';
   registerForm: FormGroup;
   bodyDeletarMunicao ='';
   title = 'Municao';
@@ -46,13 +49,41 @@ export class MunicoesComponent implements OnInit {
     this.municoesFiltradas = this.filtroLista ? this.filtrarMunicoes(this.filtroLista) : this.municoes;
   }
 
+  get filtroListaTipoEstojo(): string{
+    return this._filtroListaTipoEstojo;
+  }
+
+  set filtroListaTipoEstojo(value: string){
+    this._filtroListaTipoEstojo = value;
+    this.municoesFiltradas = this.filtroListaTipoEstojo ? this.filtrarMunicoesTipoEstojo(this.filtroListaTipoEstojo) : this.municoes;
+  }
+
+  get filtroListaTipoProjetil(): string{
+    return this._filtroListaTipoProjetil;
+  }
+
+  set filtroListaTipoProjetil(value: string){
+    this._filtroListaTipoProjetil = value;
+    this.municoesFiltradas = this.filtroListaTipoProjetil ? this.filtrarMunicoesTipoProjetil(this.filtroListaTipoProjetil) : this.municoes;
+  }
+
+  get filtroListaTipoEspoleta(): string{
+    return this._filtroListaTipoEspoleta;
+  }
+
+  set filtroListaTipoEspoleta(value: string){
+    this._filtroListaTipoEspoleta = value;
+    this.municoesFiltradas = this.filtroListaTipoEspoleta ? this.filtrarMunicoesTipoEspoleta(this.filtroListaTipoEspoleta) : this.municoes;
+  }
+
+
   editarMunicao(municao: Municao, template: any){
     this.modoSalvar = 'put';
     this.openModal(template);
     this.municao = Object.assign({}, municao);
     this.fileNameToUpdate = municao.imagem.toString();
     this.municao.imagem = '';
-    this.registerForm.patchValue(this.municao);
+    this.registerForm.patchValue(municao);
 
   }
 
@@ -87,8 +118,8 @@ export class MunicoesComponent implements OnInit {
 
   ngOnInit() {
     this.validation();
-    this.getMunicoes();
     this.getCalibres();
+    this.getMunicoes();
   }
 
   getMunicoes(){
@@ -118,6 +149,27 @@ export class MunicoesComponent implements OnInit {
         municao => municao.marca.toLocaleLowerCase().indexOf(filtrarPor) !== -1
       )
   }
+
+  filtrarMunicoesTipoEstojo(filtrarPorTipoEstojo: string): Municao[]  {
+    filtrarPorTipoEstojo = filtrarPorTipoEstojo.toLocaleLowerCase();
+    return this.municoes.filter(
+      municao => municao.tipoEstojo.toLocaleLowerCase().indexOf(filtrarPorTipoEstojo) !== -1
+    )
+}
+
+filtrarMunicoesTipoProjetil(filtrarPorTipoProjetil: string): Municao[]  {
+  filtrarPorTipoProjetil = filtrarPorTipoProjetil.toLocaleLowerCase();
+  return this.municoes.filter(
+    municao => municao.tipoProjetil.toLocaleLowerCase().indexOf(filtrarPorTipoProjetil) !== -1
+  )
+}
+
+filtrarMunicoesTipoEspoleta(filtrarPorTipoEspoleta: string): Municao[]  {
+  filtrarPorTipoEspoleta = filtrarPorTipoEspoleta.toLocaleLowerCase();
+  return this.municoes.filter(
+    municao => municao.tipoEspoleta.toLocaleLowerCase().indexOf(filtrarPorTipoEspoleta) !== -1
+  )
+}
 
   validation(){
     this.registerForm = this.fb.group({

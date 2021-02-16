@@ -15,6 +15,7 @@ import { Calibre } from '../_models/Calibre';
 export class CalibresComponent implements OnInit {
   
   _filtroLista = '';
+  _filtroListaId = '';
   registerForm: FormGroup;
   bodyDeletarCalibre ='';
   title = 'Calibre';
@@ -38,10 +39,22 @@ export class CalibresComponent implements OnInit {
     return this._filtroLista;
   }
 
+  
   set filtroLista(value: string){
     this._filtroLista = value;
     this.calibresFiltradas = this.filtroLista ? this.filtrarCalibres(this.filtroLista) : this.calibres;
   }
+
+  get filtroListaId(): string{
+    return this._filtroListaId;
+  }
+
+  set filtroListaId(value: string){
+    this._filtroListaId = value;
+    this.calibresFiltradas = this.filtroListaId ? this.filtrarCalibresPorId(this.filtroListaId) : this.calibres;
+  }
+
+
 
   editarCalibre(calibre: Calibre, template: any){
     this.modoSalvar = 'put';
@@ -104,6 +117,13 @@ export class CalibresComponent implements OnInit {
         calibre => calibre.nominal.toLocaleLowerCase().indexOf(filtrarPor) !== -1
       )
   }
+
+  filtrarCalibresPorId(filtrarPorId: string): Calibre[]  {
+    filtrarPorId = filtrarPorId.toLocaleLowerCase();
+    return this.calibres.filter(
+      calibre => calibre.id.toString() == filtrarPorId
+    )
+}
 
   validation(){
     this.registerForm = this.fb.group({

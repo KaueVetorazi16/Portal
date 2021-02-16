@@ -13,6 +13,8 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 export class ArmasComponent implements OnInit {
 
   _filtroLista = '';
+  _filtroComboValor = '';
+  filtroCombo = '';
   registerForm: FormGroup;
   bodyDeletarArma ='';
   title = 'Armas';
@@ -39,6 +41,15 @@ export class ArmasComponent implements OnInit {
   set filtroLista(value: string){
     this._filtroLista = value;
     this.armasFiltradas = this.filtroLista ? this.filtrarArmas(this.filtroLista) : this.armas;
+  }
+
+  get filtroComboValor(): string{
+    return this._filtroComboValor;
+  }
+
+  set filtroComboValor(value: string){
+    this._filtroComboValor = value;
+    this.armasFiltradas = this.filtroComboValor ? this.filtrarArmasCombo(this.filtroCombo, this.filtroComboValor) : this.armas;
   }
 
   editarArma(arma: Arma, template: any){
@@ -97,12 +108,40 @@ export class ArmasComponent implements OnInit {
       });
   }
 
-  filtrarArmas(filtrarPor: string): Arma[]  {
-      filtrarPor = filtrarPor.toLocaleLowerCase();
+  filtrarArmas(filtro: string): Arma[]  {
+      filtro = filtro.toLocaleLowerCase();
       return this.armas.filter(
-        arma => arma.marca.toLocaleLowerCase().indexOf(filtrarPor) !== -1
+        arma => arma.marca.toLocaleLowerCase().indexOf(filtro) !== -1
       )
   }
+
+  filtrarArmasCombo(filtrarPorCombo: string, filtroComboValor: string): Arma[]  {
+    this._filtroComboValor = filtroComboValor.toLocaleLowerCase();
+    switch (filtrarPorCombo) {
+      
+        case "marca":  
+        return this.armas.filter(
+          arma => arma.marca.toLocaleLowerCase().indexOf(this._filtroComboValor) !== -1
+        )      
+        break;
+        
+        case "tipo":    
+        return this.armas.filter(
+          arma => arma.tipo.toLocaleLowerCase().indexOf(this._filtroComboValor) !== -1
+        )     
+        break;
+
+        case "modelo":    
+        return this.armas.filter(
+          arma => arma.modelo.toLocaleLowerCase().indexOf(this._filtroComboValor) !== -1
+        )     
+        break;        
+    
+        default:
+        break;
+    }
+   
+}
 
   //O objeto dentro do formGroup corresponde a cada um dos campos do formulário que eu quero validar
   validation(){

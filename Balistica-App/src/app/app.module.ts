@@ -22,10 +22,12 @@ import { TituloComponent } from './_shared/titulo/titulo.component';
 import { UserComponent } from './user/user.component';
 import { RegistrationComponent } from './user/registration/registration.component';
 import { LoginComponent } from './user/login/login.component';
+import { ConteudoComponent } from './conteudo/conteudo.component';
+import { ArtigosComponent } from './artigos/artigos.component';
 
 
 @NgModule({
-  declarations: [	
+  declarations: [				
     AppComponent,
       ArmasComponent,
       NavComponent,
@@ -35,7 +37,9 @@ import { LoginComponent } from './user/login/login.component';
       TituloComponent,
       UserComponent,
       RegistrationComponent,
-      LoginComponent
+      LoginComponent,
+      ConteudoComponent,
+      ArtigosComponent
    ],
   imports: [
     BrowserModule,

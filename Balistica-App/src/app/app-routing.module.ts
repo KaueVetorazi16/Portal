@@ -1,3 +1,4 @@
+import { ConteudoComponent } from './conteudo/conteudo.component';
 import { AuthGuard } from './auth/auth.guard';
 import { RegistrationComponent } from './user/registration/registration.component';
 import { LoginComponent } from './user/login/login.component';
@@ -8,6 +9,7 @@ import { MunicoesComponent } from './municoes/municoes.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ArmasComponent } from './armas/armas.component';
+import { ArtigosComponent } from './artigos/artigos.component';
 
 const routes: Routes = [
   {path: 'user', component : UserComponent, 
@@ -20,6 +22,8 @@ const routes: Routes = [
   {path: 'municoes', component: MunicoesComponent, canActivate: [AuthGuard]},
   {path: 'calibres', component: CalibresComponent, canActivate: [AuthGuard]},
   {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
+  {path: 'conteudo', component: ConteudoComponent, canActivate: [AuthGuard] },
+  {path: 'artigos', component: ArtigosComponent, canActivate: [AuthGuard] },
   {path: '', redirectTo: 'dashboard', pathMatch: 'full' },
   {path: '**', redirectTo: 'dashboard', pathMatch: 'full' }
 ];

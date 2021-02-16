@@ -10,6 +10,21 @@
     
   </div>
 </div>
+
+<div>
+  <label class="mr-2">Filtro personalizado:</label>
+  <select [(ngModel)]="filtroCombo">
+    <option value=marca>Marca</option>
+    <option value=tipo>Tipo</option>
+    <option value=modelo>Modelo</option>
+  </select>
+  <input type="text" 
+    class="form-control mr-2" 
+    placeholder="buscar"
+    [(ngModel)]= "filtroComboValor">   
+</div>
+
+
 <div >
   <button class="btn btn-outline-primary" (click)="novaArma(template)">
     <i class="fa fa-plus-circle"></i>
