@@ -8,6 +8,8 @@ namespace Balistica.Domain.Identity
     {
       //  [Column(TypeName = "nvarchar(150")]
         public string FullName { get; set; }
+
+        public string Foto {get; set;}
         public List<UserRole> UserRoles {get; set;}
     }
 }

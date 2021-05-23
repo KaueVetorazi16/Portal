@@ -21,6 +21,6 @@ namespace Balistica.API.Dtos
         public string Observacoes { get; set; }
         public string Imagem { get; set; }
         public string CalibreId {get;set ;}
-        public CalibreDto Calibre { get; set; }
+       // public CalibreDto Calibre { get; set; }
     }
 }

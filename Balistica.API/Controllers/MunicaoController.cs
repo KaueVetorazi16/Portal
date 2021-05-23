@@ -68,7 +68,7 @@ namespace Balistica.API.Controllers
                 return this.StatusCode(StatusCodes.Status500InternalServerError, "Banco de dados falhou");
             }
 
-            return BadRequest("Erro ao tentar realizar upload");
+           
 
         }
 

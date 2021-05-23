@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 namespace Balistica.Domain
 {
@@ -13,10 +14,8 @@ namespace Balistica.Domain
         public string TipoProjetil { get; set; }
          [Required(ErrorMessage = "Tipo da espoleta is requerid.")]
         public string TipoEspoleta { get; set; }
-        public string Imagem { get; set; }
-        [Required(ErrorMessage = "Calibre is requerid.")]
-        public string CalibreId { get; set; }
-        public Calibre Calibre {get;}
+        public string CalibreNominal { get; set; }
+      
       
     }
 }

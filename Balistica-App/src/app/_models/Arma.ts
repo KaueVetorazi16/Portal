@@ -17,6 +17,5 @@ export interface Arma {
     acabamento: string;
     mobilidade: string;
     observacoes: string;
-    imagem: string;
-    calibreId: number;
+    calibreNominal: string;
 }

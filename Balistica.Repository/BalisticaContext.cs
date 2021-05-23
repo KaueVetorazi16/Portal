@@ -6,17 +6,20 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Balistica.Repository
 {
-    public class BalisticaContext : IdentityDbContext<User, Role, int, 
+    public class BalisticaContext : IdentityDbContext<User, Role, int,
                                                     IdentityUserClaim<int>, UserRole, IdentityUserLogin<int>,
                                                     IdentityRoleClaim<int>, IdentityUserToken<int>>
     {
-        
 
-        public BalisticaContext(DbContextOptions<BalisticaContext> options) : base (options) {}
+
+        public BalisticaContext(DbContextOptions<BalisticaContext> options) : base(options) { }
 
         public DbSet<Arma> Armas { get; set; }
-        public DbSet<Municao> Municoes {get; set;}
-        public DbSet<Calibre> Calibres {get; set;}
+        public DbSet<Municao> Municoes { get; set; }
+        public DbSet<Calibre> Calibres { get; set; }
+        public DbSet<Imagem> Imagens { get; set; }
+
+       // public DbSet<ImagemCalibre> ImagensCalibres { get ; set;}
     
       protected override void OnModelCreating(ModelBuilder modelBuilder){
                 
@@ -36,8 +39,11 @@ namespace Balistica.Repository
                 .IsRequired();
 
 
+
             });
-      }
+            
+
+        }
 
     }
 

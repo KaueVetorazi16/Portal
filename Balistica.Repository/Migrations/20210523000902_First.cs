@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Balistica.Repository.Migrations
 {
-    public partial class init : Migration
+    public partial class First : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -29,8 +29,7 @@ namespace Balistica.Repository.Migrations
                     Acabamento = table.Column<string>(nullable: false),
                     Mobilidade = table.Column<string>(nullable: false),
                     Observacoes = table.Column<string>(nullable: true),
-                    Imagem = table.Column<string>(nullable: false),
-                    CalibreId = table.Column<string>(nullable: false)
+                    CalibreNominal = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -72,7 +71,8 @@ namespace Balistica.Repository.Migrations
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
                     LockoutEnabled = table.Column<bool>(nullable: false),
                     AccessFailedCount = table.Column<int>(nullable: false),
-                    FullName = table.Column<string>(nullable: true)
+                    FullName = table.Column<string>(nullable: true),
+                    Foto = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -86,11 +86,27 @@ namespace Balistica.Repository.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Nominal = table.Column<string>(nullable: false),
-                    Imagem = table.Column<string>(nullable: true)
+                    DiametroDoProjetil = table.Column<double>(nullable: false),
+                    ComprimentoDoEstojo = table.Column<double>(nullable: false),
+                    FormaDeTravamento = table.Column<string>(nullable: true),
+                    SistemaDePercussao = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Calibres", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Imagens",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    nome = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Imagens", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -103,8 +119,7 @@ namespace Balistica.Repository.Migrations
                     TipoEstojo = table.Column<string>(nullable: false),
                     TipoProjetil = table.Column<string>(nullable: false),
                     TipoEspoleta = table.Column<string>(nullable: false),
-                    Imagem = table.Column<string>(nullable: true),
-                    CalibreId = table.Column<string>(nullable: false)
+                    CalibreNominal = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -277,6 +292,9 @@ namespace Balistica.Repository.Migrations
 
             migrationBuilder.DropTable(
                 name: "Calibres");
+
+            migrationBuilder.DropTable(
+                name: "Imagens");
 
             migrationBuilder.DropTable(
                 name: "Municoes");

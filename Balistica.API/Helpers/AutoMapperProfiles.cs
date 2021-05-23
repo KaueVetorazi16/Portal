@@ -11,8 +11,8 @@ namespace Balistica.API.Helpers
         {
 
            CreateMap<Arma, ArmaDto>().ReverseMap();
-         //  CreateMap<Municao, MunicaoDto>().ReverseMap();
-          // CreateMap<Calibre, CalibreDto>().ReverseMap();
+          // CreateMap<Municao, MunicaoDto>().ReverseMap();
+          //CreateMap<Calibre, CalibreDto>().ReverseMap();
            CreateMap<User, UserDto>().ReverseMap();
            CreateMap<User, UserLoginDto>().ReverseMap();
         }   

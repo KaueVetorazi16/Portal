@@ -62,8 +62,7 @@
       <th>Tipo do Estojo</th>
       <th>Tipo do Projétil</th>
       <th>Tipo da espoleta</th>
-      <th>Imagem</th> 
-      <th>Calibre </th>
+      <th>Calibre Nominal</th>
       <th>Opções</th>
     </tr>
   </thead>
@@ -74,20 +73,15 @@
       <td>{{municoes.tipoEstojo}}</td>
       <td>{{municoes.tipoProjetil}}</td>
       <td>{{municoes.tipoEspoleta}}</td>
-      <td>
-        <img src="http://localhost:5000/resources/images/{{municoes.imagem}}"
-        [style.width.px]="imagemLargura"
-        [style.margin.px]="imagemMargem">       
-      </td> 
-      <td>{{municoes.calibreId}}</td>           
+      <td>{{municoes.calibreNominal}}</td>           
       <td>
         <div class="btn-group">
           <button class="btn btn-sm btn-success" 
-          tooltip="Editar" (click)="editarMunicao(municao,template)">
+          tooltip="Editar" (click)="editarMunicao(municoes,template)">
             <i class="fa fa-edit"></i>
           </button>
           <button class="btn btn-sm btn-danger" 
-          tooltip="Excluir" (click)="excluirMunicao(municao, confirm)">
+          tooltip="Excluir" (click)="excluirMunicao(municoes, confirm)">
             <i class="fa fa-eraser"></i>
           </button>
         </div>          
@@ -185,39 +179,21 @@
                 
                 <label>Calibre</label>
                 <select class="custom-select" class="form-control" 
-                [ngClass]="{'is-invalid': registerForm.get('calibreId').errors
-                && registerForm.get('calibreId').touched}"
-                formControlName="calibreId" placeholder="Insira o calibre">
+                [ngClass]="{'is-invalid': registerForm.get('calibreNominal').errors
+                && registerForm.get('calibreNominal').touched}"
+                formControlName="calibreNominal" placeholder="Insira o calibre">
                 <option selected>Abra este menu select</option>
                   <ng-container *ngFor="let calibre of calibres">                    
-                  <option value="{{calibre.id}}"> {{calibre.nominal}}</option>
+                  <option value="{{calibre.nominal}}"> {{calibre.nominal}}</option>
                   </ng-container>                 
                 </select>
-                <div *ngIf="registerForm.get('calibreId').hasError('required')  
-                && registerForm.get('calibreId').touched" class="invalid-feedback">
+                <div *ngIf="registerForm.get('calibreNominal').hasError('required')  
+                && registerForm.get('calibreNominal').touched" class="invalid-feedback">
                   O calibre é obrigatório!
                 </div>  
               </div> 
-
-             
-              <div class="form-group col-md-4">
-                <label>Imagem</label>
-                <table>             
-                      <tr>
-                        <td>
-                      <button class="btn btn-success" (click)="file.click()">Enviar Imagem</button>
-                      <input type="file" #file [ngClass]="{'is-invalid': registerForm.get('imagem').errors
-                      && registerForm.get('imagem').touched}" (change)="onFileChange($event)"
-                      class="form-control is-invalid" formControlName="imagem" placeholder=""
-                      style="display: none"> 
-                      <div *ngIf="registerForm.get('imagem').hasError('required')
-                      && registerForm.get('imagem').touched"
-                      class="invalid-feedback">
-                    </div>
-                  </td>
-                  </tr>
-                  </table>
-              </div>    
+           
+              
             </div> 
             
           </form>

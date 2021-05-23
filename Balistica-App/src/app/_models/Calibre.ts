@@ -1,7 +1,11 @@
+
 export interface Calibre {
 
          id: number;
          nominal: string;
-         imagem: string;
+         diametroDoProjetil: number;
+         comprimentoDoEstojo: number;
+         formaDeTravamento: string;
+         sistemaDePercussao: string;       
 
 }

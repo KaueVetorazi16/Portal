@@ -1,4 +1,14 @@
-/* You can add global styles to this file, and also import other style files */
+/* You can add global styles to this file, and also import other style files 
+
+    Bootstrap: Bootstrap é um framework web com código-fonte aberto para 
+    desenvolvimento de componentes de interface e front-end para sites e aplicações web 
+    usando HTML, CSS e JavaScript, baseado em modelos de design para 
+    a tipografia, melhorando a experiência do usuário em um site amigável.
+
+    fontawesome: Get vector icons and social logos on your website with Font Awesome,
+     the web's most popular icon set and toolkit
+
+*/
 @import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 @import '../node_modules/@fortawesome/fontawesome-free/css/all.min.css';
 @import '../node_modules/bootswatch/dist/lumen/bootstrap.min.css';

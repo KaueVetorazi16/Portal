@@ -77,8 +77,8 @@ namespace Balistica.API
             .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
             .AddJsonOptions(opt => opt.SerializerSettings.ReferenceLoopHandling =
                 Newtonsoft.Json.ReferenceLoopHandling.Ignore);
-            
-            
+
+        
             services.AddScoped<IBalisticaRepository, BalisticaRepository>();
             services.AddAutoMapper();            
             services.AddCors();

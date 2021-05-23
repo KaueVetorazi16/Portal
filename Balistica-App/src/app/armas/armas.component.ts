@@ -4,6 +4,8 @@ import { Arma } from '../_models/Arma';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import {ToastrService} from 'ngx-toastr';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Calibre } from '../_models/Calibre';
+import { CalibreService } from '../_services/calibre.service';
 
 @Component({
   selector: 'app-armas',
@@ -20,6 +22,7 @@ export class ArmasComponent implements OnInit {
   title = 'Armas';
   armasFiltradas: Arma[];
   armas: Arma[];
+  calibres: Calibre[];
   arma: Arma;
   modoSalvar = 'post';
   imagemLargura: number = 100;
@@ -29,6 +32,7 @@ export class ArmasComponent implements OnInit {
 
   constructor(
     private armaService: ArmaService,
+    private calibreService: CalibreService,
     private modalService: BsModalService,
     private fb: FormBuilder,
     private toastr: ToastrService
@@ -56,8 +60,8 @@ export class ArmasComponent implements OnInit {
     this.modoSalvar = 'put';
     this.openModal(template);
     this.arma = Object.assign({}, arma);
-    this.fileNameToUpdate = arma.imagem.toString();
-    this.arma.imagem = '';
+    //this.fileNameToUpdate = arma.imagem.toString();
+    //this.arma.imagem = '';
     this.registerForm.patchValue(arma);
 
   }
@@ -94,7 +98,18 @@ export class ArmasComponent implements OnInit {
   // O ngOnInit faz com o que está dentro dele seja executado antes do HTML
   ngOnInit() {
     this.validation();
+    this.getCalibres();
     this.getArmas();
+  }
+
+  getCalibres(){
+    this.calibreService.getAllCalibre().subscribe(
+      (_calibres: Calibre[]) =>
+       {
+         this.calibres = _calibres;
+      }, error => {
+        this.toastr.error(`Erro ao tentar carregar calibres: ${error}`);
+      });
   }
 
   getArmas(){
@@ -162,8 +177,7 @@ export class ArmasComponent implements OnInit {
     acabamento: ['', Validators.required],
     mobilidade: ['', Validators.required],
     observacoes: ['', Validators.required],
-    imagem: ['', Validators.required],
-    calibreId: ['', Validators.required]
+    calibreNominal: ['', Validators.required]
     });
   }
 
@@ -172,7 +186,7 @@ export class ArmasComponent implements OnInit {
       if (this.modoSalvar === 'post') {
         this.arma = Object.assign({}, this.registerForm.value);
 
-        this.uploadImagem();
+       // this.uploadImagem();
 
         this.armaService.postArma(this.arma).subscribe(
           (novaArma: Arma) => {
@@ -186,7 +200,7 @@ export class ArmasComponent implements OnInit {
       } else {
         this.arma = Object.assign({ id: this.arma.id }, this.registerForm.value);
 
-        this.uploadImagem();
+       // this.uploadImagem();
 
         this.armaService.putArma(this.arma).subscribe(
           () => {
@@ -211,6 +225,7 @@ export class ArmasComponent implements OnInit {
       }
   }
 
+  /*
   uploadImagem() {
     if (this.modoSalvar === 'post') {
       const nomeArquivo = this.arma.imagem.split('\\', 3);
@@ -235,5 +250,5 @@ export class ArmasComponent implements OnInit {
         );
     }
   }
-
+*/
 }

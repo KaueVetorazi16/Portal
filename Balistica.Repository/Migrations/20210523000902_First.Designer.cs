@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Balistica.Repository.Migrations
 {
     [DbContext(typeof(BalisticaContext))]
-    [Migration("20210212003724_ChaveEstrangeira")]
-    partial class ChaveEstrangeira
+    [Migration("20210523000902_First")]
+    partial class First
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -32,10 +32,8 @@ namespace Balistica.Repository.Migrations
                     b.Property<string>("Alma")
                         .IsRequired();
 
-                    b.Property<string>("CalibreId")
+                    b.Property<string>("CalibreNominal")
                         .IsRequired();
-
-                    b.Property<int?>("CalibreId1");
 
                     b.Property<string>("Capacidade")
                         .IsRequired();
@@ -44,9 +42,6 @@ namespace Balistica.Repository.Migrations
                         .IsRequired();
 
                     b.Property<string>("ComprimentoDoCano")
-                        .IsRequired();
-
-                    b.Property<string>("Imagem")
                         .IsRequired();
 
                     b.Property<string>("Marca")
@@ -79,8 +74,6 @@ namespace Balistica.Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CalibreId1");
-
                     b.ToTable("Armas");
                 });
 
@@ -89,10 +82,16 @@ namespace Balistica.Repository.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Imagem");
+                    b.Property<double>("ComprimentoDoEstojo");
+
+                    b.Property<double>("DiametroDoProjetil");
+
+                    b.Property<string>("FormaDeTravamento");
 
                     b.Property<string>("Nominal")
                         .IsRequired();
+
+                    b.Property<string>("SistemaDePercussao");
 
                     b.HasKey("Id");
 
@@ -136,6 +135,8 @@ namespace Balistica.Repository.Migrations
                         .HasMaxLength(256);
 
                     b.Property<bool>("EmailConfirmed");
+
+                    b.Property<string>("Foto");
 
                     b.Property<string>("FullName");
 
@@ -187,17 +188,25 @@ namespace Balistica.Repository.Migrations
                     b.ToTable("AspNetUserRoles");
                 });
 
+            modelBuilder.Entity("Balistica.Domain.Imagem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("nome")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Imagens");
+                });
+
             modelBuilder.Entity("Balistica.Domain.Municao", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("CalibreId")
-                        .IsRequired();
-
-                    b.Property<int?>("CalibreId1");
-
-                    b.Property<string>("Imagem");
+                    b.Property<string>("CalibreNominal");
 
                     b.Property<string>("Marca")
                         .IsRequired();
@@ -212,8 +221,6 @@ namespace Balistica.Repository.Migrations
                         .IsRequired();
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CalibreId1");
 
                     b.ToTable("Municoes");
                 });
@@ -286,13 +293,6 @@ namespace Balistica.Repository.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("Balistica.Domain.Arma", b =>
-                {
-                    b.HasOne("Balistica.Domain.Calibre", "Calibre")
-                        .WithMany()
-                        .HasForeignKey("CalibreId1");
-                });
-
             modelBuilder.Entity("Balistica.Domain.Identity.UserRole", b =>
                 {
                     b.HasOne("Balistica.Domain.Identity.Role", "Role")
@@ -304,13 +304,6 @@ namespace Balistica.Repository.Migrations
                         .WithMany("UserRoles")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("Balistica.Domain.Municao", b =>
-                {
-                    b.HasOne("Balistica.Domain.Calibre", "Calibre")
-                        .WithMany()
-                        .HasForeignKey("CalibreId1");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>

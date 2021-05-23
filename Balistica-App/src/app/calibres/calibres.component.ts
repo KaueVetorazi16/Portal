@@ -28,6 +28,7 @@ export class CalibresComponent implements OnInit {
   file: File;
   fileNameToUpdate: string;
 
+
   constructor(
     private calibreService: CalibreService,
     private modalService: BsModalService,
@@ -60,8 +61,8 @@ export class CalibresComponent implements OnInit {
     this.modoSalvar = 'put';
     this.openModal(template);
     this.calibre = Object.assign({}, calibre);
-    this.fileNameToUpdate = calibre.imagem.toString();
-    this.calibre.imagem = '';
+    //this.fileNameToUpdate = calibre.imagem.toString();
+    //this.calibre.imagem = '';
     this.registerForm.patchValue(calibre);
 
   }
@@ -128,7 +129,10 @@ export class CalibresComponent implements OnInit {
   validation(){
     this.registerForm = this.fb.group({
     nominal: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
-    imagem: ['', Validators.required],
+    diametroDoProjetil: ['', [Validators.required]],
+    comprimentoDoEstojo: ['', [Validators.required]],
+    formaDeTravamento: ['', [Validators.required]],
+    sistemaDePercussao: ['', [Validators.required]]
     });
   }
 
@@ -137,7 +141,7 @@ export class CalibresComponent implements OnInit {
       if (this.modoSalvar === 'post') {
         this.calibre = Object.assign({}, this.registerForm.value);
 
-        this.uploadImagem();
+       
 
         this.calibreService.postCalibre(this.calibre).subscribe(
           (novoCalibre: Calibre) => {
@@ -151,7 +155,7 @@ export class CalibresComponent implements OnInit {
       } else {
         this.calibre = Object.assign({ id: this.calibre.id }, this.registerForm.value);
 
-        this.uploadImagem();
+   
 
         this.calibreService.putCalibre(this.calibre).subscribe(
           () => {
@@ -176,29 +180,6 @@ export class CalibresComponent implements OnInit {
       }
   }
 
-  uploadImagem() {
-    if (this.modoSalvar === 'post') {
-      const nomeArquivo = this.calibre.imagem.split('\\', 3);
-      this.calibre.imagem = nomeArquivo[2];
-
-      this.calibreService.postUpload(this.file, nomeArquivo[2])
-        .subscribe(
-          () => {            
-            this.getCalibres();
-          }
-        );
-    } else {
-      const nomeArquivo = this.calibre.imagem.split('\\', 3);
-      this.calibre.imagem = nomeArquivo[2];
-     // this.arma.imagem = this.fileNameToUpdate;
-      this.calibreService.postUpload(this.file, nomeArquivo[2])
-        .subscribe(
-          () => {
-         
-            this.getCalibres();
-          }
-        );
-    }
-  }
+  
 
 }

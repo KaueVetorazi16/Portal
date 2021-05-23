@@ -1,4 +1,5 @@
 using Balistica.Domain;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 
@@ -56,12 +57,11 @@ namespace Balistica.Domain
        
         public string Observacoes { get; set; }
         [Required(ErrorMessage = "Marca is requerid.")]
-        public string Imagem { get; set; }
+        public List<Imagem> imagens;
         
         [Required(ErrorMessage = "Calibre is requerid.")]
-        public string CalibreId { get; set; }
-        public Calibre Calibre {get;}
-
+        public string CalibreNominal { get; set; }
+      
    
 
     }

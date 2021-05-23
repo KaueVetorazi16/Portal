@@ -81,8 +81,8 @@ export class MunicoesComponent implements OnInit {
     this.modoSalvar = 'put';
     this.openModal(template);
     this.municao = Object.assign({}, municao);
-    this.fileNameToUpdate = municao.imagem.toString();
-    this.municao.imagem = '';
+    // this.fileNameToUpdate = municao.imagem.toString();
+    // this.municao.imagem = '';
     this.registerForm.patchValue(municao);
 
   }
@@ -177,8 +177,7 @@ filtrarMunicoesTipoEspoleta(filtrarPorTipoEspoleta: string): Municao[]  {
     tipoEstojo: ['', Validators.required],
     tipoProjetil: ['', Validators.required],
     tipoEspoleta: ['', Validators.required],
-    imagem: ['', Validators.required],
-    calibreId: ['', Validators.required]
+    calibreNominal: ['', Validators.required]
     });
   }
 
@@ -187,7 +186,7 @@ filtrarMunicoesTipoEspoleta(filtrarPorTipoEspoleta: string): Municao[]  {
       if (this.modoSalvar === 'post') {
         this.municao = Object.assign({}, this.registerForm.value);
 
-        this.uploadImagem();
+       // this.uploadImagem();
 
         this.municaoService.postMunicao(this.municao).subscribe(
           (novaMunicao: Municao) => {
@@ -201,7 +200,7 @@ filtrarMunicoesTipoEspoleta(filtrarPorTipoEspoleta: string): Municao[]  {
       } else {
         this.municao = Object.assign({ id: this.municao.id }, this.registerForm.value);
 
-        this.uploadImagem();
+       // this.uploadImagem();
 
         this.municaoService.putMunicao(this.municao).subscribe(
           () => {
@@ -226,6 +225,7 @@ filtrarMunicoesTipoEspoleta(filtrarPorTipoEspoleta: string): Municao[]  {
       }
   }
 
+  /*
   uploadImagem() {
     if (this.modoSalvar === 'post') {
       const nomeArquivo = this.municao.imagem.split('\\', 3);
@@ -249,6 +249,6 @@ filtrarMunicoesTipoEspoleta(filtrarPorTipoEspoleta: string): Municao[]  {
           }
         );
     }
-  }
+  }*/
 
 }

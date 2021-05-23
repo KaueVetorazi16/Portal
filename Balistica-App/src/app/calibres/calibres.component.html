@@ -35,19 +35,21 @@
     <tr>
       <th>#</th>  
       <th>Nominal</th>
-      <th>Imagem</th> 
+      <th>Diâmetro do Projétil</th>
+      <th>Comprimento do Estojo</th>
+      <th>Forma de Trancamento</th>
+      <th>Sistema de percussão</th>
       <th>Opções</th>
     </tr>
   </thead>
   <tbody *ngIf="calibres && calibres.length">
     <tr *ngFor="let calibre of calibresFiltradas">
       <td>{{calibre.id}}</td>
-      <td>{{calibre.nominal}}</td>
-      <td>
-        <img src="http://localhost:5000/resources/images/{{calibre.imagem}}"
-        [style.width.px]="imagemLargura"
-        [style.margin.px]="imagemMargem">       
-      </td>      
+      <td>{{calibre.nominal}}</td>      
+      <td>{{calibre.diametroDoProjetil}}</td>
+      <td>{{calibre.comprimentoDoEstojo}}</td> 
+      <td>{{calibre.formaDeTravamento}}</td> 
+      <td>{{calibre.sistemaDePercussao}}</td>    
       <td>
         <div class="btn-group">
           <button class="btn btn-sm btn-success" 
@@ -78,7 +80,7 @@
     <div class="modal-dialog molda -lg">
       <div class="modal-content">
         <div class="modal-header">
-            <h4 id="dialog-sizes-name1" class="modal-title pull=left"> Cadastrar  novo app-calibres</h4>
+            <h4 id="dialog-sizes-name1" class="modal-title pull=left"> Cadastrar  novo calibre</h4>
             <button type="button" class="close pull-right" (click)="template.hide()" >
               <span aria-hidden="true">&times;</span>
             </button>
@@ -102,23 +104,55 @@
               </div> 
 
               <div class="form-group col-md-4">
-                <label>Imagem</label>
-                <table>
-                  <tr>
-                    <td>
-                      <button class="btn btn-success" (click)="file.click()">Enviar Imagem</button>
-                      <input type="file" #file [ngClass]="{'is-invalid': registerForm.get('imagem').errors
-                      && registerForm.get('imagem').touched}" (change)="onFileChange($event)"
-                      class="form-control" formControlName="imagem" placeholder="" style="display: none"> 
-                      <div *ngIf="registerForm.get('imagem').hasError('required')
-                      && registerForm.get('imagem').touched"
-                      class="invalid-feedback">
-                    </div>
-                    </td>
-                  </tr>
-                </table>               
+                <label>Diâmetro do Projétil</label>
+                <input type="number" class="form-control"
+                [ngClass]="{'is-invalid': registerForm.get('diametroDoProjetil').errors
+                && registerForm.get('diametroDoProjetil').touched}"
+                formControlName="diametroDoProjetil" placeholder="Insira o diâmetro do projétil">
+                <div *ngIf="registerForm.get('diametroDoProjetil').hasError('required')  
+                && registerForm.get('diametroDoProjetil').touched" class="invalid-feedback">
+                  O diâmetro é obrigatório!
+                </div>  
+              </div> 
+
+              <div class="form-group col-md-4">
+                <label>Comprimento do Estojo</label>
+                <input type="number" class="form-control"
+                [ngClass]="{'is-invalid': registerForm.get('comprimentoDoEstojo').errors
+                && registerForm.get('comprimentoDoEstojo').touched}"
+                formControlName="comprimentoDoEstojo" placeholder="Insira o comprimento do estojo">
+                <div *ngIf="registerForm.get('comprimentoDoEstojo').hasError('required')  
+                && registerForm.get('comprimentoDoEstojo').touched" class="invalid-feedback">
+                  O comprimento do estojo é obrigatório!
+                </div>  
+              </div> 
+
+              <div class="form-group col-md-4">
+                <label>Forma de Trancamento</label>
+                <input type="text" class="form-control"
+                [ngClass]="{'is-invalid': registerForm.get('formaDeTravamento').errors
+                && registerForm.get('formaDeTravamento').touched}"
+                formControlName="formaDeTravamento" placeholder="Insira a forma de travamento">
+                <div *ngIf="registerForm.get('formaDeTravamento').hasError('required')  
+                && registerForm.get('formaDeTravamento').touched" class="invalid-feedback">
+                  A forma de travamento é obrigatória!
+                </div>  
+              </div> 
+
+              <div class="form-group col-md-4">
+                <label>Sistema de Percussão</label>
+                <input type="text" class="form-control"
+                [ngClass]="{'is-invalid': registerForm.get('sistemaDePercussao').errors
+                && registerForm.get('sistemaDePercussao').touched}"
+                formControlName="sistemaDePercussao" placeholder="Insira o sistema e percussão">
+                <div *ngIf="registerForm.get('sistemaDePercussao').hasError('required')  
+                && registerForm.get('sistemaDePercussao').touched" class="invalid-feedback">
+                  O sistema de percussão é obrigatório!
+                </div>  
+              </div> 
+
+              
                
-              </div>    
             </div> 
             
           </form>

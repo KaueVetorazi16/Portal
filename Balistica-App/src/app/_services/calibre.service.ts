@@ -43,4 +43,5 @@ constructor(private http: HttpClient) {
         formData.append('file', fileToUpload, name);
         return this.http.post(`${this.baseUrl}/upload`, FormData);
     }
+
 }

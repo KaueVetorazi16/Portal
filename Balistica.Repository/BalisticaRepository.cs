@@ -1,6 +1,9 @@
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Balistica.Domain;
+using Balistica.Repository.Pagination;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Balistica.Repository
@@ -79,6 +82,14 @@ namespace Balistica.Repository
             return await query.ToArrayAsync();
         }
 
+       /* public Task<IEnumerable<Calibre>> GetCalibres(CalibresParameters calibresParameters)
+        {
+            return GetAllCalibreAsync().OrderBy(cal => cal.Nominal)
+                .Skip((calibresParameters.PageNumber - 1) * calibresParameters.PageSize)
+                .Take(calibresParameters.PageSize)
+                .ToList();
+        }*/
+
         public async Task<Municao[]> GetAllMunicaoAsync()
         {
             IQueryable<Municao> query = _context.Municoes;
@@ -102,5 +113,7 @@ namespace Balistica.Repository
 
             return await query.FirstOrDefaultAsync();
         }
+
+       
     }
 }

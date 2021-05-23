@@ -1,5 +1,7 @@
 using System.Threading.Tasks;
+using Balistica.Repository.Pagination;
 using Balistica.Domain;
+using System.Collections.Generic;
 
 namespace Balistica.Repository
 {
@@ -27,6 +29,10 @@ namespace Balistica.Repository
         Task<Calibre[]> GetAllCalibreAsyncByNominal(string nominal); 
         Task<Calibre[]> GetAllCalibreAsync();
         Task<Calibre> GetCalibreAsyncById(int id);
+       // Task<IEnumerable<Calibre>> GetCalibres(CalibresParameters calibresParameters);
+
+        
+        
 
     }
 }
