@@ -1,7 +1,7 @@
 <app-titulo [title]="title"></app-titulo>
 
 <div class="d-flex">
-<div class="form-inline mr-auto">
+<div class="form-inline">
   <div class="form-group mb-2">
     <label class="mr-2">Filtro por marca:</label> <input type="text" 
     class="form-control mr-2" 
@@ -41,6 +41,9 @@
       <th>Pais De Fabricação</th>
       <th>Tipo</th>
       <th>Modelo</th>
+      <th>Calibre Nominal</th> 
+      <th>Opções</th> 
+      <!--
       <th>Alma</th>
       <th>Raias</th>
       <th>Tipo do Cano</th>
@@ -52,30 +55,18 @@
       <th>Capacidade</th>
       <th>Acabamento</th> 
       <th>Mobilidade</th>
-      <th>Observações</th>
-      <th>Calibre Nominal</th> 
-      <th>Opções</th>  
+      <th>Observações</th>    
+      -->
     </tr>
   </thead>
   <tbody *ngIf="armas && armas.length" >
     <tr *ngFor="let arma of armasFiltradas">
+      
       <td>{{arma.id}}</td>
       <td>{{arma.marca}}</td>
       <td>{{arma.paisDeFabricacao}}</td>
       <td>{{arma.tipo}}</td>
       <td>{{arma.modelo}}</td>
-      <td>{{arma.alma}}</td>
-      <td>{{arma.raias}}</td>
-      <td>{{arma.tipoDoCano}}</td>
-      <td>{{arma.comprimentoDoCano | number:'3.0-2'}}</td>
-      <td>{{arma.acao}}</td>
-      <td>{{arma.carregamento}}</td>
-      <td>{{arma.percussao}}</td>
-      <td>{{arma.sistemaDeFuncionamento}}</td>
-      <td>{{arma.capacidade}}</td>
-      <td>{{arma.acabamento}}</td>
-      <td>{{arma.mobilidade}}</td>
-      <td>{{arma.observacoes}}</td>     
       <td>{{arma.calibreNominal}}</td>  
       <td>
         <div class="btn-group">
@@ -89,7 +80,22 @@
           </button>
         </div>          
       </td>
+      <!--
+      <td>{{arma.alma}}</td>
+      <td>{{arma.raias}}</td>
+      <td>{{arma.tipoDoCano}}</td>
+      <td>{{arma.comprimentoDoCano | number:'3.0-2'}}</td>
+      <td>{{arma.acao}}</td>
+      <td>{{arma.carregamento}}</td>
+      <td>{{arma.percussao}}</td>
+      <td>{{arma.sistemaDeFuncionamento}}</td>
+      <td>{{arma.capacidade}}</td>
+      <td>{{arma.acabamento}}</td>
+      <td>{{arma.mobilidade}}</td>
+      <td>{{arma.observacoes}}</td>     
+       -->
     </tr>
+    
   </tbody>
   <tfoot *ngIf="!armas">
     <tr>
@@ -104,7 +110,7 @@
 
 <div bsModal #template="bs-modal" class="modal fade" tabindex="-1"
   role="dialog" aria-labelledby="dialog-sizes-name1">
-    <div class="modal-dialog molda -lg">
+    <div class="modal-dialog molda -xl">
       <div class="modal-content">
         <div class="modal-header">
             <h4 id="dialog-sizes-name1" class="modal-title pull=left"> Cadastro de armas</h4>
@@ -112,17 +118,29 @@
               <span aria-hidden="true">&times;</span>
             </button>
         </div>
+
         <div class="modal-body">
           <form [formGroup]="registerForm">
 
             <div class="form-row">
 
-              <div class="form-group col-md-4">
+              <div class="form-group col">
                 <label>Marca</label>
-                <input type="text" class="form-control"
+                <select type="custom-select" class="form-control"
                 [ngClass]="{'is-invalid': registerForm.get('marca').errors
                 && registerForm.get('marca').touched}"
                 formControlName="marca" placeholder="Insira a marca">
+                <option selected value="Taurus"> Taurus</option>
+                <option value="CBC"> CBC</option>
+                <option value="Boito"> Boito </option>
+                <option value="Rossi"> Rossi </option>
+                <option value="Glock"> Glock </option>
+                <option value="CZ"> CZ </option>
+                <option value="Castelo"> Castelo </option>
+                <option value="Smith & Wesson"> Smith & Wesson </option>
+                <option value="Colt"> Colt </option>
+                <option value="Artesanal"> Artesanal</option>
+                </select>
                 <div *ngIf="registerForm.get('marca').hasError('required')  
                 && registerForm.get('marca').touched" class="invalid-feedback">
                   A marca é obrigatória!
@@ -136,7 +154,8 @@
                   Marca deve ter no máximo 50 caracteres
                 </div>
               </div>
-              <div class="form-group col-md-4">
+
+              <div class="form-group col">
                 <label>País de Fabricação</label>
                 <input type="text" class="form-control"
                 [ngClass]="{'is-invalid': registerForm.get('paisDeFabricacao').errors
@@ -145,30 +164,34 @@
                 <div class="invalid-feedback">
                   País de fabricação é obrigatório!
                 </div>
-            </div>  
-
-            <div class="form-row">
-
-              
               </div>
-              <div class="form-group col-md-4">
+
+              <div class="form-group col">
                 <label>Tipo</label>
-                <input type="text" class="form-control" 
+                <select type="custom-select" class="form-control" 
                 [ngClass]="{'is-invalid': registerForm.get('tipo').errors
                 && registerForm.get('tipo').touched}"
                 formControlName="tipo" placeholder="">
+                <option selected value="Revólver"> Revólver</option>
+                <option value="Pistola"> Pistola</option>
+                <option value="Garrucha"> Garrucha </option>
+                <option value="Espingarda"> Espingarda </option>
+                <option value="Carabina"> Carabina </option>
+                <option value="Submetralhadora"> Submetralhadora </option>
+                <option value="Metralhadora"> Metralhadora </option>
+                <option value="Fuzil"> Fuzil </option>
+                <option value="Mosquetão"> Mosquetão </option>
+                <option value="Artesanal"> Artesanal</option>
+                </select>
                 <div class="invalid-feedback">
                   O tipo da arma é obrigatório!
                 </div>
               </div>
-             
-    
-            
             </div>
-
+            
               <div class="form-row">
 
-                <div class="form-group col-md-4">
+                <div class="form-group col">
                   <label>Modelo</label>
                   <input type="text" class="form-control"
                   [ngClass]="{'is-invalid': registerForm.get('modelo').errors
@@ -179,8 +202,7 @@
                   </div>
                 </div>
 
-                <div class="form-group col-md-4">
-                
+                <div class="form-group col">                
                 
                   <label>Calibre</label>
                   <select class="custom-select" class="form-control" 
@@ -198,23 +220,28 @@
                   </div>  
                 </div> 
                   
-              <div class="form-group col-md-4">
+              <div class="form-group col">
                 <label>Alma</label>
-                <input type="text" class="form-control" 
+                <select type="custom-select" class="form-control" 
                 [ngClass]="{'is-invalid': registerForm.get('alma').errors
                 && registerForm.get('alma').touched}"
                 formControlName="alma" placeholder="">
+                <option selected>Abra este menu select</option>                                   
+                <option value="Alma lisa"> Alma lisa</option>
+                <option value="Alma raiada - Sinistrógira"> Alma raiada - Sinistrógira</option>
+                <option value="Alma raiada - Dextrógira"> Alma raiada - Dextrógira</option>
+                </select>
                 <div class="invalid-feedback">
                   A alma é obrigatória!
                 </div>
               </div>
-              
+            
             </div>
          
           
             <div class="form-row">
 
-              <div class="form-group col-md-4">
+              <div class="form-group col">
                 <label>Raias</label>
                 <input type="number" class="form-control"
                 [ngClass]="{'is-invalid': registerForm.get('raias').errors
@@ -225,20 +252,25 @@
                 </div>
               </div>
 
-              <div class="form-group col-md-4">
+              <div class="form-group col">
                 <label>Tipo do cano</label>
-                <input type="text" class="form-control" 
+                <select type="custom-select" class="form-control" 
                 [ngClass]="{'is-invalid': registerForm.get('tipoDoCano').errors
                 && registerForm.get('tipoDoCano').touched}"
                 formControlName="tipoDoCano" placeholder="">
+                <option selected>Abra este menu select</option>                                   
+                <option value="Cano Simples"> Cano Simples</option>
+                <option value="Cano Duplo Horizontal"> Cano Duplo Horizontal</option>
+                <option value="Cano Duplo Vertical"> Cano Duplo Vertical</option>
+                </select>
                 <div class="invalid-feedback">
                   Tipo do cano é obrigatório!
                 </div>
               </div>
 
-              <div class="form-group col-md-4">
+              <div class="form-group col">
                 <label>Comp. do cano</label>
-                <input type="text" class="form-control" 
+                <input type="number" class="form-control" 
                 [ngClass]="{'is-invalid': registerForm.get('comprimentoDoCano').errors
                 && registerForm.get('comprimentoDoCano').touched}"
                 formControlName="comprimentoDoCano" placeholder="">
@@ -247,57 +279,82 @@
                 </div>
               </div>
 
-              <div class="form-group col-md-4">
+              <div class="form-row">
+              <div class="form-group col">
                 <label>Ação</label>
-                <input type="text" class="form-control"
+                <select type="custom-select" class="form-control"
                 [ngClass]="{'is-invalid': registerForm.get('acao').errors
                 && registerForm.get('acao').touched}"
                 formControlName="acao" placeholder="">
+                <option value="Ação Simples" selected>Ação Simples</option>                                   
+                <option value="Ação Dupla"> Ação Dupla</option>
+                <option value="Dupla Ação"> Dupla Ação</option>
+                <option value="Ação Híbrida"> Ação Híbrida</option>
+                </select>
                 <div class="invalid-feedback">
                   A ação é obrigatória!
                 </div>
               </div>
 
-              <div class="form-group col-md-4">
+              <div class="form-group col">
                 <label>Carregamento</label>
-                <input type="text" class="form-control"
+                <select type="custom-select" class="form-control"
                 [ngClass]="{'is-invalid': registerForm.get('carregamento').errors
                 && registerForm.get('carregamento').touched}"
-                formControlName="carregamento" placeholder="">
+                formControlName="carregamento" placeholder="">                                  
+                <option selected value="antecarga"> antecarga </option>
+                <option value="retrocarga"> retrocarga</option>
+                </select>
                 <div class="invalid-feedback">
                   O carregamento é obrigatório!
                 </div>
               </div>
 
-              <div class="form-group col-md-4">
+              <div class="form-group col">
                 <label>Percussão</label>
-                <input type="text" class="form-control" 
+                <select type="custom-select" class="form-control" 
                 [ngClass]="{'is-invalid': registerForm.get('percussao').errors
                 && registerForm.get('percussao').touched}"
-                formControlName="percussao" placeholder="">
+                formControlName="percussao" placeholder=""> 
+                <option value="Haste de Ferro"> Haste de Ferro</option>                                
+                <option value="Sistema de Mecha"> Mecha </option>
+                <option value="Feche de Roda"> Feche de Roda</option>
+                <option value="Miguelete"> Miguelete </option>
+                <option value="Percussão Extrínseca"> Percussão Extrínseca </option>
+                <option value="Percussão Intrínseca Central Indireta"> Percussão Intrínseca Central Indireta </option>
+                <option selected value="Percussão Intrínseca Central Direta"> Percussão Intrínseca Central Direta  </option>
+                <option value="Percussão Intrínseca Radial"> Percussão Intrínseca Radial  </option>
+                <option value="Percussão Intrínseca Pino-Lateral"> Percussão Intrínseca Pino-Lateral </option>
+                <option value="Inflamação Elétrica"> Inflamação Elétrica </option>
+                </select>
                 <div class="invalid-feedback">
                   A percussão é obrigatória!
                 </div>
               </div>
 
             </div> 
-          
+          </div>
             <div class="form-row">
-
              
 
-              <div class="form-group col-md-4">
-                <label> Sistema de Funcionamento </label>
-                <input type="text" class="form-control"
+              <div class="form-group col">
+                <label> Sist. de Funcionamento </label>
+                <select type="custom-select" class="form-control"
                 [ngClass]="{'is-invalid': registerForm.get('sistemaDeFuncionamento').errors
                 && registerForm.get('sistemaDeFuncionamento').touched}"
                 formControlName="sistemaDeFuncionamento" placeholder=""> 
+                <option selected value="Tiro Unitário - Cano Simples"> Tiro Unitário - Cano Simples</option>
+                <option value="Tiro Unitário - Cano Múltiplo"> Tiro Unitário - Cano Múltiplo</option>
+                <option value="De repetição - Não automática"> De repetição - Não automática </option>
+                <option value="Semiautomática"> Semiautomática </option>
+                <option value="Automática"> Automática </option>
+                </select>
                 <div class="invalid-feedback">
                   Sistema de funcionário é obrigatório!
                 </div>
               </div>
 
-              <div class="form-group col-md-4">
+              <div class="form-group col">
                 <label>Capacidade</label>
                 <input type="text" class="form-control"
                 [ngClass]="{'is-invalid': registerForm.get('capacidade').errors
@@ -308,7 +365,7 @@
                 </div>
               </div>
 
-              <div class="form-group col-md-4">
+              <div class="form-group col">
                 <label>Acabamento</label>
                 <input type="text" class="form-control"
                 [ngClass]="{'is-invalid': registerForm.get('acabamento').errors
@@ -317,30 +374,33 @@
                 <div class="invalid-feedback">
                   O acabamento é obrigatório!
                 </div>
-              </div>
-
-              <div class="form-group col-md-4">
-                <label>Mobilidade</label>
-                <input type="text" class="form-control"
-                [ngClass]="{'is-invalid': registerForm.get('mobilidade').errors
-                && registerForm.get('mobilidade').touched}"
-                formControlName="mobilidade" placeholder="">
-                <div class="invalid-feedback">
-                  A mobilidade é obrigatória!
-                </div>
-              </div>
-
-
-             
+              </div>                    
           
            
             </div> 
           
             <div class="form-row">
-              <div class="form-group col-md-4">
+
+              <div class="form-group col">
+                <label>Mobilidade</label>
+                <select type="custom-select" class="form-control"
+                [ngClass]="{'is-invalid': registerForm.get('mobilidade').errors
+                && registerForm.get('mobilidade').touched}"
+                formControlName="mobilidade" placeholder="">
+                <option selected value="Não-Portátil"> Não-Portátil</option>
+                <option value="De Porte"> De Porte</option>
+                <option value="Portátil"> Portátil </option>
+                </select>
+                <div class="invalid-feedback">
+                  A mobilidade é obrigatória!
+                </div>
+              </div>  
+
+              <div class="form-group col">
                 <label>Observações</label>
                 <input type="text" #file class="form-control" formControlName="observacoes" placeholder="">
-              </div>                
+              </div> 
+                             
             </div> 
             
           </form>
